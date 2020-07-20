@@ -1,0 +1,6 @@
+# Ignore all dotfiles by default. This excludes any hidden folders created by DeckBuild, such as
+# ".Photocurrent" given "Photocurrent.in".
+.*
+# Include Git dotfiles.
+!.gitignore
+!.gitattributes

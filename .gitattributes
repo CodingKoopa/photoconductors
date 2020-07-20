@@ -1,0 +1,2 @@
+# Highlight .in files as Python code, as the syntax is similar enough.
+*.in linguist-language=Python gitlab-language=py
