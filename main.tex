@@ -1,0 +1,325 @@
+
+\documentclass[preprint,12pt]{elsarticle}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+
+
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{lineno}
+
+\usepackage{hyperref}
+\def\bibsection{\section*{References}}
+\linenumbers
+%AT:
+%AT\newcommand{\main}{.}
+%AT\def\biblio{}
+%AT\providecommand{\biblio}{\nocite{article-minimal}\bibliographystyle{report}\clearpage\bibliography{\main/references}} 
+
+\journal{Nuclear Instruments and Methods A}
+
+%%\journal{Nuclear Physics B}
+
+
+\begin{document}
+\begin{frontmatter}
+\title{Stability of the Scribeline in an Irradiated Silicon Sensor}
+\author{Marco Bomben}
+\author{Gian-Franco Dalla Betta}
+\author{Gabriele Giacomini}
+
+\author{Th\'eophile Boinnard}
+%%\author{Wei Chen magari si ringrazia soltanto, come Abdul \corref{cor4}}
+\address{Brookhaven National Laboratory, Upton 11973, NY, U.S.A.}
+
+
+\begin{abstract}
+Scribelines are    
+\end{abstract}
+
+\begin{keyword}
+silicon sensors  \sep electrical characterization \sep high voltage \sep high-energy physics
+\end{keyword}
+
+\end{frontmatter}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+It is well known that current from scribeline is negligible in an irradiated silicon sensor ~\cite{Sadrozinski:2013nja}. 
+
+
+ Figure~\ref{fig:sketch}. 
+
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{sketch.jpg}
+\caption{\label{fig:sketch} Sketch of the structure}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Proposed naming conventions}
+\label{sec:naming}
+\subsection{Structures}
+There are two structures to be used:
+\begin{itemize}
+\item {\bf U}ndiced (without n$^+$ implant at edge)
+\item{\bf T}rench (with n$^+$ implant at edge)
+\end{itemize}
+
+\subsection{Damage}
+There are two types of damage to be simulated:
+\begin{itemize}
+    \item {\bf E}dge. For edge the damage can be in two mutually exclusive states: {\bf Y}es (damage is present) and {\bf N}o (no damage is present)
+    \item{\bf B}ulk. For bulk damage the state is indicated by the fluence $\Phi$
+\end{itemize}
+
+\subsection{Electrodes}
+There are three electrodes:
+\begin{itemize}
+    \item {\bf C}athode
+    \item {\bf G}ate (or {\bf G}uard {\bf R}ing)
+    \item {\bf S}ubstrate
+\end{itemize}
+
+Given the above convention if we want - see below - to study the change in cathode 
+current when the bulk is irradiated at fluence $\Phi$ and the edge damage is present 
+or not, we will indicate the quantity as:
+\begin{equation}
+\Delta I_{C}^{(\Phi,Y)} = I_{C,U}^{(\Phi,Y)}-I_{C,T}^{(\Phi,N)}
+\end{equation}
+indicating that the current when the edge is undamaged is evaluated using the undiced 
+structure.
+
+
+\section{modelization of the edge damage and of the bulk damage}
+
+Figure 1:
+Here we can show a 2D map of the electrostatic potential with:
+\begin{itemize}
+\item Neumann condition: nothing on the edge (device as in an undiced wafer). This is realized using the Undiced structure with no edge damage. Fluence = 0, HV~200V.
+
+\item trench n+ . This is 
+realized using the Trench structure. Fluence = 0, HV~200V.
+
+\item  edge with damage. This is realized using the Undiced structure. Fluence = 0, HV~200V.
+
+
+\end{itemize}
+\begin{verbatim}
+    --------------------------------------------------------
+\end{verbatim}
+
+Figure 2:
+
+possibly also a vertical cutline of the potential along the edge X=699, Y from 0 to 300.
+\begin{verbatim}
+    --------------------------------------------------------
+\end{verbatim}
+
+
+
+
+
+
+\section{TCAD simulations}
+This is the list of the simulations that we need:
+
+
+\begin{verbatim}
+    --------------------------------------------------------
+\end{verbatim}
+
+
+Figure 3
+
+
+Let's begin with I-Vs of the scribeline-induced currents at the cathode and at the gate.
+We need to subtract the bulk current (which is, for the cathode,  $I_{C,T}^{(\Phi,N)}$).
+We can do this subtraction because, as seen in Figure 1, the potential is the same in the two cases of "Trenched with n+" and "damaged scribeline", and so are the depletion regions.
+
+Let's plot the GR currents for several $\Phi$, starting from 0, to 1e15 (whatever, just at least one point below type inversion and one point above type inversion):
+\begin{equation}
+    \Delta I_{G}^{(\Phi)}=I_{G,U}^{(\Phi,Y)}-I_{G,T}^{(\Phi,N)}
+    \end{equation}
+
+
+let's plot the Cathode currents for several $\Phi$, starting from 0, to 1e15 (whatever, just at least one point below type inversion and one point above type inversion):
+\begin{equation}
+    \Delta I_{C}^{(\Phi)}=I_{C,U}^{(\Phi,Y)}-I_{C,T}^{(\Phi,N)}
+    \end{equation}
+
+\begin{verbatim}
+    --------------------------------------------------------
+\end{verbatim}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%
+%\begin{itemize}
+
+
+%\item not irradiated bulk, damaged edge. We see that the current of the GR increases when its depletion region touches the edge. We indicate the currents as (see Section~\ref{sec:naming}):
+%\begin{itemize}
+%\item $I_{C,U}^{(0,Y)}$ for the cathode,
+%    \item $I_{G,U}^{(0,Y)}$ for the gate
+%\end{itemize}
+
+
+
+
+
+%\item we can do a simulation with the trench (passivated edge, or n+ edge) and subtract the gate current to the previous simulation, as to obtain the leakage from the edge only.
+%We indicate the currents as:
+%\begin{itemize}
+%    \item $I_{C,T}^{(\Phi,N)}$ for the cathode,
+%    \item $I_{G,T}^{(\Phi,N)}$ for the gate
+%\end{itemize}
+
+
+%\item  irradiated bulk (maybe a few fluences?), damaged edge. We see that the  current of the gate (due only to the edge) is lower than in the case of non-irradiated bulk.
+%We indicate the currents as:
+%\begin{itemize}
+ %   \item $I_{C,U}^{(\Phi,Y)}$
+%    \item $I_{G,U}^{(\Phi,Y)}$
+%\end{itemize}
+%We want to study the following difference:
+%\begin{equation}
+%    \Delta I_{G}^{(\Phi)}=I_{G,U}^{(\Phi,Y)}-I_{G,T}^{(\Phi,N)}
+%    \end{equation}
+%    \begin{equation}
+%    \Delta I_{C}^{(\Phi)}=I_{C,U}^{(\Phi,Y)}-I_{C,T}^{(\Phi,N)}
+%\end{equation}
+
+%\item also here  we may want to simulate the situation with the edge passivated (n$^+$ edge).
+We want to study the following difference:
+%\begin{itemize}
+%    \item $I_{C,T}^{(\Phi,Y)}$
+%    \item $I_{C,T}^{(\Phi,Y)}$
+%\end{itemize}
+
+%\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%
+2D maps  from Tonyplot:
+in irradiated vs non irradiated bulk (both with damaged edge):
+
+Figure 4:
+
+Hole current in the geometry of damaged scribeline only.
+- $\Phi =0 $ and V= enough to reach the scribeline (and let's use just this Voltage from now on)
+- $\Phi$ after type inversion for V at the peak of the Cathode current
+- $\Phi$ after type inversion for V where cathode current has plateau, possibly the same voltage as in the case $\Phi =0 $ above.
+
+\begin{verbatim}
+    --------------------------------------------------------
+\end{verbatim}
+
+
+Figure 5:
+Electrostatic Potential 
+- $\Phi =0 $ and V= enough to reach the scribeline (same voltage used above)
+- $\Phi$ after type inversion for same V as above
+
+
+\begin{verbatim}
+    --------------------------------------------------------
+\end{verbatim}
+Figure 6:
+Hole concentration 
+- $\Phi =0 $ and V= enough to reach the scribeline (same voltage used above)
+- $\Phi$ after type inversion for same V as above
+
+\begin{verbatim}
+    --------------------------------------------------------
+\end{verbatim}
+
+Figure 7:
+
+Ionized traps density for $\Phi$ after type inversion, V same as above
+
+\begin{verbatim}
+    --------------------------------------------------------
+\end{verbatim}
+
+Figure 8:
+
+
+charge density
+- $\Phi =0 $ and V= enough to reach the scribeline, same as above
+- $\Phi$ after type inversion for same V as above
+
+\begin{verbatim}
+    --------------------------------------------------------
+\end{verbatim}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Electrical Characterization}
+
+ 
+ %%%%%%%%%%%%%%%%%
+% \begin{table}
+%\begin{tabular}{|c|c|c|c|}
+%\hline
+%A  & B  & C & D    \\
+% \hline
+% 2.50  & 2.3 & 0.92 & 450   \\
+% 2.75 & 2.5 & 0.91 & 380   \\
+% 3.00    & 2.7 &  0.90 & 300 \\ 
+% 3.25 & 2.9 &  0.89 & 200   \\
+% 3.50  & 3.2 &  0.91 & 50  \\
+% \hline
+%\end{tabular}
+% \caption{this is a template of a table, if we need it}
+%  \label{table:table}
+%\end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{ Measurements}
+
+
+
+
+
+\section{Conclusions}
+
+
+
+\section{Acknowledgements}
+This material is based upon work supported by the U.S. Department of Energy under grant DE-SC0012704.
+
+
+
+\bibliographystyle{elsarticle-num}
+\bibliography{biblio}{}
+%AT:
+%\bibliographystyle{report}
+%\bibliography{\main/references}
+
+\end{document}
