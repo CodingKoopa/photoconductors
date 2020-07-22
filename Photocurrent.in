@@ -107,7 +107,7 @@ save outf=$file_sta
 
 log outf=t.log
 solve tfinal=1e-8 tstep=1e-11
-save outf=after2ns.sta
+save outf=${exp_name}_after2e-8s.sta
 
 # loop start here
 
