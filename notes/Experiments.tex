@@ -1,0 +1,134 @@
+\documentclass[12pt]{article}
+
+% Use English with babel.
+\usepackage[english]{babel}
+% Use T1 font encoding. This should be imported before inputenc.
+\usepackage[T1]{fontenc}
+% UTF-8 character encoding.
+\usepackage[utf8]{inputenc}
+% Use math symbols.
+\usepackage{amssymb}
+\usepackage{amsmath}
+% See: https://tex.stackexchange.com/a/166127
+\usepackage{textcomp}
+% Use more text and math symbols.
+\usepackage{gensymb}
+% Use SI units and scientific notation.
+\usepackage{siunitx}
+% Use URLs This is necessary to have links with sectional URLS. https://tex.stackexchange.com/a/547221
+\usepackage{url}
+% Use natbib, for URLs in the bibliography.
+\usepackage{natbib}
+% See: https://tex.stackexchange.com/a/10928.
+\usepackage{etoolbox}
+\apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
+% Use graphics.
+\usepackage{graphicx}
+\graphicspath{ {../data/calc_current_1/} {../data/calc_current_2/} }
+% Use hyperlinks. This should be imported last.
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    citecolor=blue
+}
+
+
+\title{Photoconductor Research}
+\author{Kyle Loerker}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Calculating electrical current}
+
+We understand that intrinsic semiconductors do not conduct much electricity if any. Extrinsic semiconductors do conduct electricity, with their added amount of charge carriers. Given a uniform electric field and density, resistance can be represented by \citep{wikipedia_resistivity_ideal}:
+\begin{equation}
+  R=\rho\frac{\ell}{A} \label{eq:resistance}
+\end{equation}
+In our simulation of a thin slab of silicon, we may apply this equation as the density and doping of the material is uniform, and the electric field is constant, as seen in figure \ref{fig:efield}.
+
+For a doped semiconductor, there are a couple of ways of determining the electrical resistivity $\rho$:
+\begin{itemize}
+  \item Finding the resistivity of the doped material as a function of the amount of electrons and/or electron holes, with this equation \citep{colorado_resistivity} \citep{wikipedia_resistivity}:
+        \begin{equation}
+          \sigma=q(\mu_nn+\mu_pp) \label{eq:conductivity}
+        \end{equation}
+        $q$ is the charge, where $q=e=\SI{1.60e-19}{C}$. $n$ is the number of electrons, and $p$ is the number of electron holes. $\mu_n$ and $\mu_p$ are the mobilities of the electrons and holes, respectively. When there is a negligible amount of minority carriers, this equation can be simplified to $\sigma=q\mu_nn$ or $\sigma=q\mu_pp$. Finally, $\rho$ is the reciprocol of electrical conductivity $\sigma$.
+  \item Finding the resistivity at a single point, with the equation $\rho=\frac{E}{L}$. $E$ is the magnitude of the electric field, and $J$ is the magnitude of the current density, at this point. This is a more general equation, but it can be useful for us as $E$ and $J$ are constant throughout our chip.
+\end{itemize}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{efield}
+  \caption{Graph of the magnitude of the electric field across the chip.}
+  \label{fig:efield}
+\end{figure}
+
+Unless specified otherwise, the following examples will assume the following:
+\begin{itemize}
+  \item $N_d=\SI{1e15}{cm^{-3}}$
+  \item The substrate material is silicon, and the dopant material is phosphorus.
+  \item The temperature is $300{\degree}K$
+\end{itemize}
+
+\subsection{Using a calculator}
+\href{https://www.pvlighthouse.com.au/resistivity}{This} online calculator can be used to determine what the resistivity of a given doped semiconductor will be, taking dopant concentration $N_d$ as an input. According to this calculator, $\rho=4.584{\Omega}cm$.
+
+\subsection{Using a graph}
+Similarly to the last method, one can also use a graph of $N_d$ vs. $\rho$ to determine resistivity, such as that of \href{https://www.quora.com/What-is-the-effect-of-doping-on-resistance}{this} Quora answer. According to this group, $\rho\approx5{\Omega}cm$.
+
+\subsection{Calculating from E-field and current density}
+Using Silvaco TCAD, it can be found that $E=100.\frac{V}{cm}$ and $J=21.9\frac{A}{cm^2}$ (see figure \ref{fig:efieldcurrentdensity}), which can be used to find the resistivity:
+\begin{equation}
+  \rho=\frac{E}{L}=\frac{100.\frac{V}{cm}}{21.9\frac{A}{cm^2}}=4.564{\Omega}cm
+\end{equation}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{efieldcurrentdensity}
+  \caption{Graph of the magnitude of the electric field and current density across the chip.}
+  \label{fig:efieldcurrentdensity}
+\end{figure}
+
+\subsection{Calculating from doping concentration}
+$\mu_n$ is tricky to determine by hand, as it is related to the drift velocity \citep{wikipedia_mobility}. I have used the calculator from before to determine that $\mu_n=1324\frac{cm^2}{Vs}$. The calculator takes electron and hole lifetimes as a parameter, which we can extract from the \emph{material}parameter of the deck: "material region=1 taun0=1e-7 taup0=1e-7". These parameters do not seem to affect the mobilities anyways, though. The concentration of electrons can be found using TCAD (see figure \ref{fig:econc}), $n=\SI{1e15}{cm^{-3}}$ (equivalent to our doping concentration). These can be used to find the resistivity:
+\begin{equation}
+  \rho=\frac{1}{q\mu_nn}=\frac{1}{(\SI{1.60e-19}{C})(1324\frac{cm^2}{Vs})(\SI{1e15}{cm^{-3}})}=4.54{\Omega}m
+\end{equation}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{econc}
+  \caption{Graph of the electron concentration across the chip.}
+  \label{fig:econc}
+\end{figure}
+
+\section{Effect of dopant concentration and voltage on current}
+Electrical current varies with the dopant type, dopant concentration, and voltage applied. The data from these experiments is available \href{https://docs.google.com/spreadsheets/d/1gYwgjLNNKRn5CSeJdrwOt3nx-jSYUwJLR_BUbzWCe9E/edit?usp=sharing}{here}. Figure \ref{fig:concvcurrent} shows the relationship between dopant concentration, and current. This graph includes the simulated current from the TCAD log files, and the current calculated using equations \eqref{eq:conductivity} and \eqref{eq:resistance}, where $I=\frac{V}{R}$. As $N_d$ increases, current {{I}} increases. For phosphorus, the simulated currents are lower, but for boron, the simulated currents are higher, when compared to their calculated counterparts.
+
+Figure \ref{fig:voltvcurrent} shows the relationship between voltage, and current. As expected, larger voltages yield larger currents; it is worth noting that the deficit was much larger with phosphorus than with boron.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{concvcurrent}
+  \caption{Graph of electron concentration vs. dopant concentration for phosphorus and boron.}
+  \label{fig:concvcurrent}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{voltvcurrent}
+  \caption{Graph of voltage vs. dopant concentration for phosphorus and boron.}
+  \label{fig:voltvcurrent}
+\end{figure}
+
+\bibliography{Experiments}
+\bibliographystyle{unsrtnat}
+
+\end{document}
+
+\end{document}
