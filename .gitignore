@@ -4,3 +4,13 @@
 # Include Git dotfiles.
 !.gitignore
 !.gitattributes
+# Ignore all TeX build files.
+[Nn]otes/*
+# Include TeX source files.
+![Nn]otes/*.tex
+[Nn]otes/*temp.tex
+![Nn]otes/*.bib
+# Ignore all Silvaco TCAD files.
+*.str
+*.log
+*.sta
