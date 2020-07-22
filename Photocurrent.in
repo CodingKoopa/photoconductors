@@ -107,23 +107,20 @@ save outf=$file_sta
 
 log outf=t.log
 solve tfinal=1e-8 tstep=1e-11
-save outf=after20ns.sta
-method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=0.2e-9
-solve tfinal=1e-7 tstep=1e-10
-save outf=after100ns.sta
-method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=2e-9
-solve tfinal=1e-6 tstep=1e-9
-save outf=after1e-6s.sta
-method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=20e-9
-solve tfinal=1e-5 tstep=1e-8
-save outf=after1e-5s.sta
-method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=200e-9
-solve tfinal=1e-4 tstep=1e-7
-save outf=after1e-4s.sta
-method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=2000e-9
-solve tfinal=1e-3 tstep=1e-6
-save outf=after1e-3s.sta
-method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=20000e-9
+save outf=after2ns.sta
+
+# loop start here
+
+loop steps = 6 print
+  assign name = t_final n.value=1e-7 ratio=10
+  assign name = t_step n.value=1e-10 ratio=10
+  assign name = dt_max n.value=0.2e-9 ratio=10
+
+  # Reconfigure the solving method.
+  method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$dt_max
+  solve tfinal=$t_final tstep=$dt_max
+  save outf=${exp_name}_after${t_final}s.sta
+l.end
 
 # Open the solution in TonyPlot.
 #tonyplot $file_sta $file_log
