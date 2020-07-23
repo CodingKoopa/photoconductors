@@ -122,7 +122,7 @@ loop steps = 6 print
 
   # Reconfigure the solving method.
   method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$dt_max
-  solve tfinal=$t_final tstep=$dt_max
+  solve tfinal=$t_final tstep=$t_step
   save outf=${exp_name}_after${t_final}s.sta
 l.end
 
