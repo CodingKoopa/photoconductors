@@ -19,6 +19,24 @@
 \usepackage{siunitx}
 % Use url. This is necessary to have links with sectional URLS. https://tex.stackexchange.com/a/547221
 \usepackage{url}
+% Use listings, for source code formatting.
+\usepackage{listings}
+\lstset{
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=2
+}
 % Use natbib, for URLs in the bibliography.
 \usepackage{natbib}
 % See: https://tex.stackexchange.com/a/10928.
@@ -73,9 +91,9 @@ For a doped semiconductor, there are a couple of ways of determining the electri
 
 Unless specified otherwise, the following examples will assume the following:
 \begin{itemize}
-  \item $N_d=\SI{1e15}{cm^{-3}}$
+  \item $N_d=\SI{1e15}{cm^{-3}}$.
   \item The substrate material is silicon, and the dopant material is phosphorus.
-  \item The temperature is $300{\degree}K$
+  \item The temperature is $300{\degree}K$.
 \end{itemize}
 
 \subsection{Using a calculator}
@@ -97,7 +115,11 @@ Using Silvaco TCAD, it can be found that $E=100.\frac{V}{cm}$ and $J=21.9\frac{A
 \end{figure}
 
 \subsection{Calculating from doping concentration}
-$\mu_n$ is tricky to determine by hand, as it is related to the drift velocity \citep{wikipedia_mobility}. I have used the calculator from before to determine that $\mu_n=1324\frac{cm^2}{Vs}$. The calculator takes electron and hole lifetimes as a parameter, which we can extract from the \emph{material}parameter of the deck: "material region=1 taun0=1e-7 taup0=1e-7". These parameters do not seem to affect the mobilities anyways, though. The concentration of electrons can be found using TCAD (see figure \ref{fig:econc}), $n=\SI{1e15}{cm^{-3}}$ (equivalent to our doping concentration). These can be used to find the resistivity:
+$\mu_n$ is tricky to determine by hand, as it is related to the drift velocity \citep{wikipedia_mobility}. I have used the calculator from before to determine that $\mu_n=1324\frac{cm^2}{Vs}$. The calculator takes electron and hole lifetimes as a parameter, which we can extract from the \lstinline{material} parameter of the deck:
+\begin{lstlisting}
+  material region=1 taun0=1e-7 taup0=1e-7
+\end{lstlisting}
+These parameters do not seem to affect the mobilities anyways, though. The concentration of electrons can be found using TCAD (see figure \ref{fig:econc}), $n=\SI{1e15}{cm^{-3}}$ (equivalent to our doping concentration). These can be used to find the resistivity:
 \begin{equation}
   \rho=\frac{1}{q\mu_nn}=\frac{1}{(\SI{1.60e-19}{C})(1324\frac{cm^2}{Vs})(\SI{1e15}{cm^{-3}})}=4.54{\Omega}m
 \end{equation}
