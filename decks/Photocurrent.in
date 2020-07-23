@@ -92,9 +92,7 @@ models bipolar
 method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=0.02e-9
 
 # Introduce a Single Event Upset, with a given number of electron-hole pairs,
-# moving with a given radius from (50, 10) to (60, 10).
-# modify
-singleeventupset entrypoint="0,50" exitpoint="1,50" pcunits b.density=1.0e-4 \
+# moving with a given radius.
     radialgauss radius=5 t0=2.e-11 tc=0
 
 # Solve with all voltages set to 0.
