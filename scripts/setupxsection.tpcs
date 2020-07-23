@@ -1,0 +1,40 @@
+# Copy this into the TonyPlot command stream to setup an xsection overlay.
+
+# Select all of the plots.
+select all
+
+# Make a cutline across the whole chip.
+cutline from 0,0 to 0,100
+
+# Delete the non-Xsection plots as we won't be using them.
+delete
+
+# Select all of the new Xsection plots.
+select all
+
+# Turn on auto draw. I don't really like this command because it is a toggle,
+# and there is no non-toggle version that, say, just turns auto drawing on, so
+# here we will be preferring to manually trigger a redraw.
+# draw auto
+
+# Turn off any existing impurities. Generally, this will disable the "Abs
+# Net Doping" impurity.
+xsection impurity none
+
+# Add the donor concentration impurity.
+xsection impurity "Donor Conc"
+# Add the hole concentration impurity.
+xsection impurity "Hole Conc"
+
+# Display each key with the same color but different symbol, and each level
+# with the same symbol, but different color. This is infinitely more readable
+# than the alternative.
+mark overlay 0
+
+# Move the overlay key to the bottom left.
+key overlay at 3
+
+# Trigger a draw.
+draw all
+
+# Leave a newline above here so that every command gets ran.
