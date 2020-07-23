@@ -114,7 +114,7 @@ save outf=$file_sta
 log outf=$file_time_log
 
 solve tfinal=1e-8 tstep=1e-11
-save outf=${exp_name}_after2e-8s.sta
+save outf=${exp_name}_after2e-008s.sta
 
 loop steps = 6 print
   assign name = t_final n.value=1e-7 ratio=10
