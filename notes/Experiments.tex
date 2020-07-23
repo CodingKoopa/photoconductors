@@ -6,6 +6,8 @@
 \usepackage[T1]{fontenc}
 % UTF-8 character encoding.
 \usepackage[utf8]{inputenc}
+% Use the float package, for float option H.
+\usepackage{float}
 % Use math symbols.
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -62,7 +64,7 @@ For a doped semiconductor, there are a couple of ways of determining the electri
   \item Finding the resistivity at a single point, with the equation $\rho=\frac{E}{L}$. $E$ is the magnitude of the electric field, and $J$ is the magnitude of the current density, at this point. This is a more general equation, but it can be useful for us as $E$ and $J$ are constant throughout our chip.
 \end{itemize}
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{efield}
   \caption{Graph of the magnitude of the electric field across the chip.}
@@ -87,7 +89,7 @@ Using Silvaco TCAD, it can be found that $E=100.\frac{V}{cm}$ and $J=21.9\frac{A
 \begin{equation}
   \rho=\frac{E}{L}=\frac{100.\frac{V}{cm}}{21.9\frac{A}{cm^2}}=4.564{\Omega}cm
 \end{equation}
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{efieldcurrentdensity}
   \caption{Graph of the magnitude of the electric field and current density across the chip.}
@@ -100,7 +102,7 @@ $\mu_n$ is tricky to determine by hand, as it is related to the drift velocity \
   \rho=\frac{1}{q\mu_nn}=\frac{1}{(\SI{1.60e-19}{C})(1324\frac{cm^2}{Vs})(\SI{1e15}{cm^{-3}})}=4.54{\Omega}m
 \end{equation}
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{econc}
   \caption{Graph of the electron concentration across the chip.}
@@ -110,18 +112,18 @@ $\mu_n$ is tricky to determine by hand, as it is related to the drift velocity \
 \section{Effect of dopant concentration and voltage on current}
 Electrical current varies with the dopant type, dopant concentration, and voltage applied. The data from these experiments is available \href{https://docs.google.com/spreadsheets/d/1gYwgjLNNKRn5CSeJdrwOt3nx-jSYUwJLR_BUbzWCe9E/edit?usp=sharing}{here}. Figure \ref{fig:concvcurrent} shows the relationship between dopant concentration, and current. This graph includes the simulated current from the TCAD log files, and the current calculated using equations \eqref{eq:conductivity} and \eqref{eq:resistance}, where $I=\frac{V}{R}$. As $N_d$ increases, current {{I}} increases. For phosphorus, the simulated currents are lower, but for boron, the simulated currents are higher, when compared to their calculated counterparts.
 
-Figure \ref{fig:voltvcurrent} shows the relationship between voltage, and current. As expected, larger voltages yield larger currents; it is worth noting that the deficit was much larger with phosphorus than with boron.
-
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{concvcurrent}
+  \includegraphics[width=0.5\textwidth]{concvcurrent}
   \caption{Graph of electron concentration vs. dopant concentration for phosphorus and boron.}
   \label{fig:concvcurrent}
 \end{figure}
 
-\begin{figure}[ht]
+Figure \ref{fig:voltvcurrent} shows the relationship between voltage, and current. As expected, larger voltages yield larger currents; it is worth noting that the deficit was much larger with phosphorus than with boron.
+
+\begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{voltvcurrent}
+  \includegraphics[width=0.5\textwidth]{voltvcurrent}
   \caption{Graph of voltage vs. dopant concentration for phosphorus and boron.}
   \label{fig:voltvcurrent}
 \end{figure}
