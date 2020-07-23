@@ -44,7 +44,7 @@
 \apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
 % Use graphics.
 \usepackage{graphicx}
-\graphicspath{ {../data/calc_current_1/} {../data/calc_current_2/} }
+\graphicspath{ {../data/calc_current_1/} {../data/calc_current_2/} {../data/time_v_current/} }
 % Use hyperlinks. This should be imported last.
 \usepackage{hyperref}
 \hypersetup{
@@ -155,6 +155,13 @@ To study the change in current flowing through the chip, the single-event upset 
 
 We have already logged the current flowing through the chip for different applied voltages. As can be seen in figure \ref{fig:voltvcurrentlog}, $V$ and $I$ are proportional, which makes sense as the two electrodes are configured to be ohmic. Now, we will study the current flowing through the chip for different times after the single-event upset.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{voltvcurrentlog}
+  \caption{Graph of substrate voltage vs substrate current.}
+  \label{fig:voltvcurrentlog}
+\end{figure}
+
 In order to study this change, three variables were modified:
 \begin{itemize}
   \item \lstinline{dt.max}, the maximum time-step for the transient simulation to run to. Transient simulations allow one to study the changed caused by an event like a sudden charged particle, and how the electronics react. This is opposed to studying electronics in their stable condition, without these upsets \citep{deshpande}.
@@ -163,11 +170,75 @@ In order to study this change, three variables were modified:
 \end{itemize}
 All three of these variables were increased by an order of magnitude each time.
 
+Figure \ref{fig:timevcurrent} shows how the current gradually decreases over time. It decreases linearly at first, before the rate starts to lessen at about $\SI{1e-7}{s}$.
+
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{voltvcurrentlog}
-  \caption{Graph of substrate voltage vs substrate current.}
-  \label{fig:voltvcurrentlog}
+  \includegraphics[width=\textwidth]{timevcurrent}
+  \caption{Graph of time vs substrate current.}
+  \label{fig:timevcurrent}
+\end{figure}
+
+In the initial simulations of specific time-stamps, it can be seen that a change in the electric field is propagated. By $\SI{1e-6}{s}$, the electric field seems to become constant once more.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_after2e-008s}
+  \caption{Graph of distance vs substrate current after $\SI{20}{ns}$.}
+  \label{fig:after2e-008s}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_after1e-007s}
+  \caption{Graph of distance vs substrate current after $\SI{1e-7}{s}$.}
+  \label{fig:after1e-007s}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_after1e-006s}
+  \caption{Graph of distance vs substrate current after $\SI{1e-6}{s}$.}
+  \label{fig:after1e-006s}
+\end{figure}
+
+To further study this, the density of electron-hole pairs present in the single-event upset was increased from $\SI{1.0e-4}{\frac{pC}{{\mu}m}}$ to $\SI{1.0e-3}{\frac{pC}{{\mu}m}}$ and $\SI{1.0e-2}{\frac{pC}{{\mu}m}}$. As can be seen in figures \ref{fig:density1.0e-3_after2e-008s} through \ref{fig:density1.0e-2_after1e-006s}, increasing the density results in a much greater magnitude of change in the electric field. The time for which these changes last remains the same.
+
+% N.B. I messed up and named the density part of the files 1.0e- rather than 1e-.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_density1.0e-3_after2e-008s}
+  \caption{Graph of distance vs substrate current after $\SI{20}{ns}$.}
+  \label{fig:density1.0e-3_after2e-008s}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_density1.0e-3_after1e-007s}
+  \caption{Graph of distance vs substrate current after $\SI{1e-7}{s}$.}
+  \label{fig:density1.0e-3_after1.0e-1-007s}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_density1.0e-3_after1e-006s}
+  \caption{Graph of distance vs substrate current after $\SI{1e-6}{s}$.}
+  \label{fig:density1.0e-3_after1.0e-1-006s}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_density1.0e-2_after2e-008s}
+  \caption{Graph of distance vs substrate current after $\SI{20}{ns}$.}
+  \label{fig:density1.0e-2_after2e-008s}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_density1.0e-2_after1e-007s}
+  \caption{Graph of distance vs substrate current after $\SI{1e-7}{s}$.}
+  \label{fig:density1.0e-2_after1.0e-1-007s}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_density1.0e-2_after1e-006s}
+  \caption{Graph of distance vs substrate current after $\SI{1e-6}{s}$.}
+  \label{fig:density1.0e-2_after1e-006s}
 \end{figure}
 
 \bibliography{Experiments}
