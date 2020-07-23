@@ -150,6 +150,26 @@ Figure \ref{fig:voltvcurrent} shows the relationship between voltage, and curren
   \label{fig:voltvcurrent}
 \end{figure}
 
+\section{Change in current over time}
+To study the change in current flowing through the chip, the single-event upset was modified from it's original behavior of moving from $(50, 10)$ to $(60, 10)$, to moving from $(0, 50)$ to $(1, 50)$. Additionally, the density was changed from $\SI{1.14e-4}{\frac{pC}{{\mu}m}}$ to $\SI{1.0e-4}{\frac{pC}{{\mu}m}}$.
+
+We have already logged the current flowing through the chip for different applied voltages. As can be seen in figure \ref{fig:voltvcurrentlog}, $V$ and $I$ are proportional, which makes sense as the two electrodes are configured to be ohmic. Now, we will study the current flowing through the chip for different times after the single-event upset.
+
+In order to study this change, three variables were modified:
+\begin{itemize}
+  \item \lstinline{dt.max}, the maximum time-step for the transient simulation to run to. Transient simulations allow one to study the changed caused by an event like a sudden charged particle, and how the electronics react. This is opposed to studying electronics in their stable condition, without these upsets \citep{deshpande}.
+  \item \lstinline{dt}/\lstinline{tstep}, the time-step to start at.
+  \item \lstinline{tfinal}, the time-step to end at.
+\end{itemize}
+All three of these variables were increased by an order of magnitude each time.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{voltvcurrentlog}
+  \caption{Graph of substrate voltage vs substrate current.}
+  \label{fig:voltvcurrentlog}
+\end{figure}
+
 \bibliography{Experiments}
 \bibliographystyle{unsrtnat}
 
