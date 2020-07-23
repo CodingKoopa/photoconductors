@@ -4,6 +4,10 @@
 # Include Git dotfiles.
 !.gitignore
 !.gitattributes
+# Include the Editorconfig configuration.
+!.editorconfig
+# Include the GitLab CI configuration.
+!.gitlab-ci.yml
 # Ignore all TeX build files.
 [Nn]otes/*
 # Include TeX source files.
