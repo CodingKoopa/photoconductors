@@ -44,7 +44,7 @@
 \apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
 % Use graphics.
 \usepackage{graphicx}
-\graphicspath{ {../data/calc_current_1/} {../data/calc_current_2/} {../data/time_v_current_base/} {../data/time_v_current_vary_density/} {../data/time_v_current_vary_lifetime/} }
+\graphicspath{ {../data/calc_current_1/} {../data/calc_current_2/} {../data/time_v_current_base/} {../data/time_v_current_vary_density/} {../data/time_v_current_vary_lifetime/} {../data/time_v_current_vary_voltage/} }
 % Use hyperlinks. This should be imported last.
 \usepackage{hyperref}
 \hypersetup{
@@ -194,7 +194,7 @@ In the initial simulations of specific time-stamps depicted in figure \ref{fig:d
 % Break this line to prevent an overful hbox.
 To further study this, the density of electron-hole pairs present in the single-event upset was changed from it's default of $\SI{1.0e-4}{\frac{pC}{{\mu}m}}$ , from \\$\SI{1.0e-2}{\frac{pC}{{\mu}m}}$ to $\SI{1.0e-5}{\frac{pC}{{\mu}m}}$. According to figure \ref{fig:distancevcurrent_density}, greater densities yield greater electron and hole concentrations. Fluctuations in electron holes are greater than that of electrons. This data seems to confirm that the event is finished at $\SI{1e-6}{s}$.
 
-  % It seems to me that, because of the way we broke up that last paragraph, the rest of this section becomes annoying. Weird and annoying, but eh.
+  % It seems to me that, because of the way we broke up that last paragraph, the proceeding text becomes indented. Weird and annoying, but eh.
   \begin{figure}[htp]
     \centering
     \includegraphics[width=.3\textwidth]{density_after2e-008s}\hfill
@@ -206,16 +206,16 @@ To further study this, the density of electron-hole pairs present in the single-
 
   \subsection{Modifying electron-hole pair lifetimes}
 
-  The parameters for the lifetimes for the electrons and holes were changed from $\SI{1e-7}{s}$, from $\SI{1e-6}{s}$ to $\SI{1e-8}{s}$.
+  The parameters for the lifetimes for the electrons and holes were changed from $\SI{1e-7}{s}$, from $\SI{1e-6}{s}$ to $\SI{1e-8}{s}$. According to figure \ref{fig:distancevcurrent_lifetime}, greater lifetimes yield greater concentrations. The difference made from going from $\SI{1e-7}{s}$ to $\SI{1e-8}{s}$ looks to be greater than to $\SI{1e-6}{s}$.
 
-\begin{figure}[htp]
-  \centering
-  \includegraphics[width=.3\textwidth]{lifetime_after2e-008s}\hfill
-  \includegraphics[width=.3\textwidth]{lifetime_after1e-007s}\hfill
-  \includegraphics[width=.3\textwidth]{lifetime_after1e-006s}
-  \caption{Distance vs $e^-$/$h^+$ concentraion after $\SI{20}{ns}$, $\SI{1e-7}{s}$, and $\SI{1e-6}{s}$.}
-  \label{fig:distancevcurrent_lifetime}
-\end{figure}
+  \begin{figure}[htp]
+    \centering
+    \includegraphics[width=.3\textwidth]{lifetime_after2e-008s}\hfill
+    \includegraphics[width=.3\textwidth]{lifetime_after1e-007s}\hfill
+    \includegraphics[width=.3\textwidth]{lifetime_after1e-006s}
+    \caption{Distance vs $e^-$/$h^+$ concentraion after $\SI{20}{ns}$, $\SI{1e-7}{s}$, and $\SI{1e-6}{s}$.}
+    \label{fig:distancevcurrent_lifetime}
+  \end{figure}
 
 \bibliography{Experiments}
 \bibliographystyle{unsrtnat}
