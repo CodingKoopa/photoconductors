@@ -44,7 +44,7 @@
 \apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
 % Use graphics.
 \usepackage{graphicx}
-\graphicspath{ {../data/calc_current_1/} {../data/calc_current_2/} {../data/time_v_current/} }
+\graphicspath{ {../data/calc_current_1/} {../data/calc_current_2/} {../data/time_v_current_base/} {../data/time_v_current_vary_density/} {../data/time_v_current_vary_lifetime/} }
 % Use hyperlinks. This should be imported last.
 \usepackage{hyperref}
 \hypersetup{
@@ -110,7 +110,7 @@ Using Silvaco TCAD, it can be found that $E=100.\frac{V}{cm}$ and $J=21.9\frac{A
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{efieldcurrentdensity}
-  \caption{Graph of the magnitude of the electric field and current density across the chip.}
+  \caption{Magnitude of the electric field and current density across the chip.}
   \label{fig:efieldcurrentdensity}
 \end{figure}
 
@@ -127,7 +127,7 @@ These parameters do not seem to affect the mobilities anyways, though. The conce
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{econc}
-  \caption{Graph of the electron concentration across the chip.}
+  \caption{Electron concentration across the chip.}
   \label{fig:econc}
 \end{figure}
 
@@ -137,7 +137,7 @@ Electrical current varies with the dopant type, dopant concentration, and voltag
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\textwidth]{concvcurrent}
-  \caption{Graph of electron concentration vs. dopant concentration for phosphorus and boron.}
+  \caption{Electron concentration vs. dopant concentration for phosphorus and boron.}
   \label{fig:concvcurrent}
 \end{figure}
 
@@ -146,7 +146,7 @@ Figure \ref{fig:voltvcurrent} shows the relationship between voltage, and curren
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\textwidth]{voltvcurrent}
-  \caption{Graph of voltage vs. dopant concentration for phosphorus and boron.}
+  \caption{Dopant concentration for phosphorus and boron at different voltages.}
   \label{fig:voltvcurrent}
 \end{figure}
 
@@ -158,7 +158,7 @@ We have already logged the current flowing through the chip for different applie
 \begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{voltvcurrentlog}
-  \caption{Graph of substrate voltage vs substrate current.}
+  \caption{Substrate voltage vs substrate current.}
   \label{fig:voltvcurrentlog}
 \end{figure}
 
@@ -170,56 +170,36 @@ In order to study this change, three variables were modified:
 \end{itemize}
 All three of these variables were increased by an order of magnitude each time.
 
-Figure \ref{fig:timevcurrent} shows how the current gradually decreases over time. It decreases linearly at first, before the rate starts to lessen at about $\SI{1e-7}{s}$.
+The current gradually decreases over time. It decreases linearly at first, before the rate starts to lessen at about $\SI{1e-7}{s}$.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{timevcurrent}
-  \caption{Graph of time vs substrate current.}
-  \label{fig:timevcurrent}
+  \includegraphics[width=0.5\textwidth]{timevcurrent}
+  \caption{Time vs substrate current.}
 \end{figure}
 
-In the initial simulations of specific time-stamps, it can be seen that a change in the electric field is propagated. By $\SI{1e-6}{s}$, the electric field seems to become constant once more.
+In the initial simulations of specific time-stamps depicted in figure \ref{fig:distancevcurrent}, it can be seen that a change in the electric field is propagated. By $\SI{1e-6}{s}$, the electric field seems to become constant once more.
 
-\begin{figure}[H]
+\begin{figure}[htp]
   \centering
-  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_after2e-008s}
-  \caption{Graph of distance vs substrate current after $\SI{20}{ns}$.}
-  \label{fig:after2e-008s}
-\end{figure}
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_after1e-007s}
-  \caption{Graph of distance vs substrate current after $\SI{1e-7}{s}$.}
-  \label{fig:after1e-007s}
-\end{figure}
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_after1e-006s}
-  \caption{Graph of distance vs substrate current after $\SI{1e-6}{s}$.}
-  \label{fig:after1e-006s}
+  \includegraphics[width=.3\textwidth]{PC_100um_Nsub1e+015_after2e-008s}\hfill
+  \includegraphics[width=.3\textwidth]{PC_100um_Nsub1e+015_after1e-007s}\hfill
+  \includegraphics[width=.3\textwidth]{PC_100um_Nsub1e+015_after1e-006s}
+  \caption{Distance vs substrate current after $\SI{20}{ns}$, $\SI{1e-7}{s}$, and $\SI{1e-6}{s}$.}
+  \label{fig:distancevcurrent}
 \end{figure}
 
-To further study this, the density of electron-hole pairs present in the single-event upset was increased from $\SI{1.0e-4}{\frac{pC}{{\mu}m}}$ to $\SI{1.0e-3}{\frac{pC}{{\mu}m}}$ and $\SI{1.0e-2}{\frac{pC}{{\mu}m}}$. As can be seen in figures \ref{fig:density1.0e-3_after2e-008s} through \ref{fig:density1.0e-2_after1e-006s}, increasing the density results in a much greater magnitude of change in the electric field. The time for which these changes last remains the same.
+\subsection{Modifying electron-hole pair density}
 
-% N.B. I messed up and named the density part of the files 1.0e- rather than 1e-.
-\begin{figure}[H]
+To further study this, the density of electron-hole pairs present in the single-event upset was changed from it's default of $\SI{1.0e-4}{\frac{pC}{{\mu}m}}$ to $\SI{1.0e-2}{\frac{pC}{{\mu}m}}$-$\SI{1.0e-5}{\frac{pC}{{\mu}m}}$. According to figure \ref{fig:distancevcurrent_density}, greater densities yield greater electron and hole concentrations. Fluctuations in electron holes are greater than that of electrons. This data seems to confirm that the event is finished at $\SI{1e-6}{s}$.
+
+\begin{figure}[htp]
   \centering
-  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_density1.0e-3_after2e-008s}
-  \caption{Graph of distance vs substrate current after $\SI{20}{ns}$.}
-  \label{fig:density1.0e-3_after2e-008s}
-\end{figure}
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_density1.0e-3_after1e-007s}
-  \caption{Graph of distance vs substrate current after $\SI{1e-7}{s}$.}
-  \label{fig:density1.0e-3_after1.0e-1-007s}
-\end{figure}
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.4\textwidth]{PC_100um_Nsub1e+015_density1.0e-3_after1e-006s}
-  \caption{Graph of distance vs substrate current after $\SI{1e-6}{s}$.}
-  \label{fig:density1.0e-3_after1.0e-1-006s}
+  \includegraphics[width=.3\textwidth]{density_after2e-008s}\hfill
+  \includegraphics[width=.3\textwidth]{density_after1e-007s}\hfill
+  \includegraphics[width=.3\textwidth]{density_after1e-006s}
+  \caption{Distance vs $e^-$/$h^+$ concentraion after $\SI{20}{ns}$, $\SI{1e-7}{s}$, and $\SI{1e-6}{s}$.}
+  \label{fig:distancevcurrent_density}
 \end{figure}
 
 \begin{figure}[H]
