@@ -81,7 +81,6 @@ mesh inf=$file_str
 contact name=substrate neutral
 contact name=cathode neutral
 # Configure the electron and hole lifetime parameters.
-# modify
 material region=1 taun0=1e-7 taup0=1e-7
 # Enable default models used for bipolar devices.
 models bipolar
