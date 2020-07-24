@@ -44,7 +44,7 @@
 \apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
 % Use graphics.
 \usepackage{graphicx}
-\graphicspath{ {../data/calc_current_1/} {../data/calc_current_2/} {../data/time_v_current_base_1/} {../data/time_v_current_vary_density/} {../data/time_v_current_vary_lifetime/} {../data/time_v_current_vary_voltage/} }
+\graphicspath{ {../data/calc_current_1/} {../data/calc_current_2/} {../data/time_v_current_base_1/} {../data/time_v_current_vary_density/} {../data/time_v_current_vary_lifetime/} {../data/time_v_current_vary_voltage/} {../data/time_v_current_base_2/} }
 % Use hyperlinks. This should be imported last.
 \usepackage{hyperref}
 \hypersetup{
@@ -151,7 +151,7 @@ Figure \ref{fig:voltvcurrent} shows the relationship between voltage, and curren
   \label{fig:voltvcurrent}
 \end{figure}
 
-\section{Change in current over time}
+\section{Change in current over time (Baseline 1)}
 
 To study the change in current flowing through the chip, the single-event upset was modified from it's original behavior of moving from $(50, 10)$ to $(60, 10)$, to moving from $(0, 50)$ to $(1, 50)$. Additionally, the density was changed from $\SI{1.14e-4}{\frac{pC}{{\mu}m}}$ to $\SI{1.0e-4}{\frac{pC}{{\mu}m}}$.
 
@@ -220,13 +220,24 @@ To further study this, the density of electron-hole pairs present in the single-
   \subsection{Modifying applied voltage}
   The applied voltage was changed from $1V$ to $2V$, $5V$, and $10V$. At first, this has the effect of translating the graphs. As time goes on, though, the higher voltages seem to taper out sooner.
 
-\begin{figure}[htp]
+  \begin{figure}[htp]
+    \centering
+    \includegraphics[width=.3\textwidth]{voltage_after2e-008s}\hfill
+    \includegraphics[width=.3\textwidth]{voltage_after1e-007s}\hfill
+    \includegraphics[width=.3\textwidth]{voltage_after1e-006s}
+    \caption{Distance vs $e^-$/$h^+$ concentraion after $\SI{20}{ns}$, $\SI{1e-7}{s}$, and $\SI{1e-6}{s}$.}
+    \label{fig:distancevcurrent_voltage}
+  \end{figure}
+
+  \section{Change in current over time (Baseline 2)}
+
+  % Break this line to prevent an overful hbox.
+  A new baseline was created, where \lstinline{b.density = 1e-015} rather than \\\lstinline{b.density = 1e-015}, and \lstinline{radius = 1} rather than \lstinline{radius = 5}. Additionally, the time intervals at which data was changed to $20ns$.
+
+\begin{figure}[H]
   \centering
-  \includegraphics[width=.3\textwidth]{voltage_after2e-008s}\hfill
-  \includegraphics[width=.3\textwidth]{voltage_after1e-007s}\hfill
-  \includegraphics[width=.3\textwidth]{voltage_after1e-006s}
-  \caption{Distance vs $e^-$/$h^+$ concentraion after $\SI{20}{ns}$, $\SI{1e-7}{s}$, and $\SI{1e-6}{s}$.}
-  \label{fig:distancevcurrent_voltage}
+  \includegraphics[width=0.5\textwidth]{n8}
+  \caption{Distance vs $e^-$/$h^+$ concentraion.}
 \end{figure}
 
 \bibliography{Experiments}

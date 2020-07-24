@@ -48,13 +48,13 @@ title main "Electron & Hole Concentration vs. Distance Across Chip"
 
 # Set the sub title.
 # CHANGE THIS!
-title sub "After 1e-"
+# title sub "After 1e-"
 
 # Set the level names.
 # CHANGE THIS!
-label overlay 0 " = 1e-"
-label overlay 1 " = 1e-"
-label overlay 2 " = 1e-"
+# label overlay 0 " = 1e-"
+# label overlay 1 " = 1e-"
+# label overlay 2 " = 1e-"
 
 # Trigger a draw.
 draw all
