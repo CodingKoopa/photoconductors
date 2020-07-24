@@ -116,9 +116,12 @@ solve tfinal=1e-8 tstep=1e-11
 save outf=${exp_name}_after2e-008s.sta
 
 loop steps = 6
+  # Set the maximum time-step to run for.
+  assign name = dt_max n.value=0.2e-9 ratio=10  
+  # Set the time-step to end at.
   assign name = t_final n.value=1e-7 ratio=10
+  # Set the time-step to start at.
   assign name = t_step n.value=1e-10 ratio=10
-  assign name = dt_max n.value=0.2e-9 ratio=10
 
   # Reconfigure the solving method.
   method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$dt_max
