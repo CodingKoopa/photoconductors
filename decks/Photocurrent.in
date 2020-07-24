@@ -92,8 +92,8 @@ method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=0.02e-9
 
 # Introduce a Single Event Upset, with a given number of electron-hole pairs,
 # moving with a given radius.
-singleeventupset entrypoint="0,50" exitpoint="1,50" pcunits b.density=1.0e-4 \
-    radialgauss radius=5 t0=2.e-11 tc=0
+singleeventupset entrypoint="0,50" exitpoint="1,50" pcunits b.density=1.0e-5 \
+    radialgauss radius=1 t0=2.e-11 tc=0
 
 # Solve with all voltages set to 0.
 solve initial
@@ -111,21 +111,25 @@ save outf=$file_sta
 # time to the log file.
 log outf=$file_time_log
 
-# tfinal -> 2e-8, tstep -> 20e-9
-solve tfinal=1e-8 tstep=1e-11
-save outf=${exp_name}_after2e-008s.sta
+# Old: tstep=1e-11 tfinal=1e-8
+# New: tstep=20e-9 tfinal=2e-8
+#solve tstep=20e-9 tfinal=2e-8
+#save outf=${exp_name}_after2e-008s.sta
 
-loop steps = 6
-  # Set the maximum time-step to run for.
-  assign name = dt_max n.value=0.2e-9 ratio=10
-  # Set the time-step to end at.
-  assign name = t_final n.value=1e-7 ratio=10
-  # Set the time-step to start at.
-  assign name = t_step n.value=1e-10 ratio=10
+loop steps = 8
+  # Set the time to start at.
+  assign name = t_step n.value=0 delta=20e-9
+  # Set the time to end at.
+  assign name = t_final n.value=$t_step+20e-9 delta=20e-9
+  # Set the maximum time-step. This represents the intervals over which the
+  # simulation runs, in order to get from t_step to t_final. In a sense, this
+  # seems to control the "resolution" of the simulations. As the times get
+  # larger, this is scaled up alongside it.
+  assign name = dt_max n.value=0.2e-9
 
   # Reconfigure the solving method.
   method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$dt_max
-  solve tfinal=$t_final tstep=$t_step
+  solve tstep=$t_step tfinal=$t_final
   save outf=${exp_name}_after${t_final}s.sta
 l.end
 
