@@ -1,4 +1,12 @@
-# Copy this into the TonyPlot command stream to setup an xsection overlay.
+# setupoverlay.tpcs
+# This file contains TonyPlot command stream statements for making an overlay plot.
+
+# Usage:
+# Open all of the desired solution files, overlayed on top each other.
+# Edit the contents of this document as needed, particularly the "CHANGE THIS!" lines.
+# Copy the contents of this document.
+# Paste the contents into the command stream, accessible via "File" -> "Command Stream".
+# This script will make a cutline, and setup the new overlay as needed.
 
 # Select all of the plots.
 select all
@@ -21,8 +29,8 @@ select all
 # Net Doping" impurity.
 xsection impurity none
 
-# Add the donor concentration impurity.
-xsection impurity "Donor Conc"
+# Add the electron concentration impurity.
+xsection impurity "Electron Conc"
 # Add the hole concentration impurity.
 xsection impurity "Hole Conc"
 
@@ -33,6 +41,20 @@ mark overlay 0
 
 # Move the overlay key to the bottom left.
 key overlay at 3
+
+# Set the main title.
+# CHANGE THIS!
+title main "Electron & Hole Concentration vs. Distance Across Chip"
+
+# Set the sub title.
+# CHANGE THIS!
+title sub "After 1e-"
+
+# Set the level names.
+# CHANGE THIS!
+label overlay 0 " = 1e-"
+label overlay 1 " = 1e-"
+label overlay 2 " = 1e-"
 
 # Trigger a draw.
 draw all
