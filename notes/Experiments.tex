@@ -132,6 +132,7 @@ These parameters do not seem to affect the mobilities anyways, though. The conce
 \end{figure}
 
 \section{Effect of dopant concentration and voltage on current}
+
 Electrical current varies with the dopant type, dopant concentration, and voltage applied. The data from these experiments is available \href{https://docs.google.com/spreadsheets/d/1gYwgjLNNKRn5CSeJdrwOt3nx-jSYUwJLR_BUbzWCe9E/edit?usp=sharing}{here}. Figure \ref{fig:concvcurrent} shows the relationship between dopant concentration, and current. This graph includes the simulated current from the TCAD log files, and the current calculated using equations \eqref{eq:conductivity} and \eqref{eq:resistance}, where $I=\frac{V}{R}$. As $N_d$ increases, current {{I}} increases. For phosphorus, the simulated currents are lower, but for boron, the simulated currents are higher, when compared to their calculated counterparts.
 
 \begin{figure}[H]
@@ -151,6 +152,7 @@ Figure \ref{fig:voltvcurrent} shows the relationship between voltage, and curren
 \end{figure}
 
 \section{Change in current over time}
+
 To study the change in current flowing through the chip, the single-event upset was modified from it's original behavior of moving from $(50, 10)$ to $(60, 10)$, to moving from $(0, 50)$ to $(1, 50)$. Additionally, the density was changed from $\SI{1.14e-4}{\frac{pC}{{\mu}m}}$ to $\SI{1.0e-4}{\frac{pC}{{\mu}m}}$.
 
 We have already logged the current flowing through the chip for different applied voltages. As can be seen in figure \ref{fig:voltvcurrentlog}, $V$ and $I$ are proportional, which makes sense as the two electrodes are configured to be ohmic. Now, we will study the current flowing through the chip for different times after the single-event upset.
@@ -190,7 +192,6 @@ In the initial simulations of specific time-stamps depicted in figure \ref{fig:d
 \end{figure}
 
 \subsection{Modifying electron-hole pair density}
-
 % Break this line to prevent an overful hbox.
 To further study this, the density of electron-hole pairs present in the single-event upset was changed from it's default of $\SI{1.0e-4}{\frac{pC}{{\mu}m}}$ , from \\$\SI{1.0e-2}{\frac{pC}{{\mu}m}}$ to $\SI{1.0e-5}{\frac{pC}{{\mu}m}}$. According to figure \ref{fig:distancevcurrent_density}, greater densities yield greater electron and hole concentrations. Fluctuations in electron holes are greater than that of electrons. This data seems to confirm that the event is finished at $\SI{1e-6}{s}$.
 
@@ -205,7 +206,6 @@ To further study this, the density of electron-hole pairs present in the single-
   \end{figure}
 
   \subsection{Modifying electron-hole pair lifetimes}
-
   The parameters for the lifetimes for the electrons and holes were changed from $\SI{1e-7}{s}$, from $\SI{1e-6}{s}$ to $\SI{1e-8}{s}$. According to figure \ref{fig:distancevcurrent_lifetime}, greater lifetimes yield greater concentrations. The difference made from going from $\SI{1e-7}{s}$ to $\SI{1e-8}{s}$ looks to be greater than to $\SI{1e-6}{s}$.
 
   \begin{figure}[htp]
@@ -218,7 +218,6 @@ To further study this, the density of electron-hole pairs present in the single-
   \end{figure}
 
   \subsection{Modifying applied voltage}
-
   The applied voltage was changed from $1V$ to $2V$, $5V$, and $10V$. At first, this has the effect of translating the graphs. As time goes on, though, the higher voltages seem to taper out sooner.
 
 \begin{figure}[htp]
