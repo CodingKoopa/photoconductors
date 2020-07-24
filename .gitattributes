@@ -1,2 +1,4 @@
 # Highlight .in files as Python code, as the syntax is similar enough.
 *.in linguist-language=Python gitlab-language=py
+# Ditto with TonyPlot command stream files. Note that this is not an official format or extension.
+*.tpcs linguist-language=Python gitlab-language=py
