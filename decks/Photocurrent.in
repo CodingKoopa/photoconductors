@@ -21,7 +21,7 @@ if.end
 # File Paths
 
 # Name of the experiment.
-set exp_name = "PC_${si_len}um_${dopant_t}${dopant_c}_difftimestep"
+set exp_name = "PC_${si_len}um_${dopant_t}${dopant_c}"
 # Name of the structure file.
 set file_str = "${exp_name}.str"
 # Name of the log file for varying voltage.
@@ -112,7 +112,7 @@ save outf=$file_sta
 log outf=$file_time_log
 
 # tfinal -> 2e-8, tstep -> 20e-9
-solve tfinal=2e-8 tstep=20e-9
+solve tfinal=1e-8 tstep=1e-11
 save outf=${exp_name}_after2e-008s.sta
 
 loop steps = 6
