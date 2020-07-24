@@ -117,7 +117,7 @@ save outf=${exp_name}_after2e-008s.sta
 
 loop steps = 6
   # Set the maximum time-step to run for.
-  assign name = dt_max n.value=0.2e-9 ratio=10  
+  assign name = dt_max n.value=0.2e-9 ratio=10
   # Set the time-step to end at.
   assign name = t_final n.value=1e-7 ratio=10
   # Set the time-step to start at.
