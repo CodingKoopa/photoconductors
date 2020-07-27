@@ -44,7 +44,7 @@
 \apptocmd{\sloppy}{\hbadness 10000\relax}{}{}
 % Use graphics.
 \usepackage{graphicx}
-\graphicspath{ {../data/calc_current_1/} {../data/calc_current_2/} {../data/time_v_current_base_1/} {../data/time_v_current_vary_density/} {../data/time_v_current_vary_lifetime/} {../data/time_v_current_vary_voltage/} {../data/time_v_current_base_2/} }
+\graphicspath{ {../data/calc_current_1/} {../data/calc_current_2/} {../data/time_v_current_base_1/} {../data/time_v_current_vary_density/} {../data/time_v_current_vary_lifetime_1/} {../data/time_v_current_vary_voltage/} {../data/time_v_current_base_2/} {../data/time_v_current_vary_lifetime_2/} }
 % Use hyperlinks. This should be imported last.
 \usepackage{hyperref}
 \hypersetup{
@@ -206,15 +206,15 @@ To further study this, the density of electron-hole pairs present in the single-
   \end{figure}
 
   \subsection{Modifying electron-hole pair lifetimes}
-  The parameters for the lifetimes for the electrons and holes were changed from $\SI{1e-7}{s}$, from $\SI{1e-6}{s}$ to $\SI{1e-8}{s}$. According to figure \ref{fig:distancevcurrent_lifetime}, greater lifetimes yield greater concentrations. The difference made from going from $\SI{1e-7}{s}$ to $\SI{1e-8}{s}$ looks to be greater than to $\SI{1e-6}{s}$.
+  The parameters for the lifetimes for the electrons and holes were changed from $\SI{1e-7}{s}$, from $\SI{1e-6}{s}$ to $\SI{1e-8}{s}$. According to figure \ref{fig:distancevcurrent_lifetime_1}, greater lifetimes yield greater concentrations. The difference made from going from $\SI{1e-7}{s}$ to $\SI{1e-8}{s}$ looks to be greater than to $\SI{1e-6}{s}$.
 
   \begin{figure}[htp]
     \centering
-    \includegraphics[width=.3\textwidth]{lifetime_after2e-008s}\hfill
-    \includegraphics[width=.3\textwidth]{lifetime_after1e-007s}\hfill
-    \includegraphics[width=.3\textwidth]{lifetime_after1e-006s}
+    \includegraphics[width=.3\textwidth]{lifetime_1_after2e-008s}\hfill
+    \includegraphics[width=.3\textwidth]{lifetime_1_after1e-007s}\hfill
+    \includegraphics[width=.3\textwidth]{lifetime_1_after1e-006s}
     \caption{Distance vs $e^-$/$h^+$ concentraion after $\SI{20}{ns}$, $\SI{1e-7}{s}$, and $\SI{1e-6}{s}$.}
-    \label{fig:distancevcurrent_lifetime}
+    \label{fig:distancevcurrent_lifetime_1}
   \end{figure}
 
   \subsection{Modifying applied voltage}
@@ -250,17 +250,23 @@ To further study this, the density of electron-hole pairs present in the single-
 
   Thus, we need to modify the deck to satisfy the conditions of going to $\SI{500}{ns}$, at a suitable frequency. After tuning the parameters, I arrived at this plot:
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.7\textwidth]{n4n20}
-  \caption{Distance vs $e^-$/$h^+$ concentraion with 24 samples.}
-  \label{fig:n4n20}
-\end{figure}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{n4n20}
+    \caption{Distance vs $e^-$/$h^+$ concentraion with 24 samples.}
+    \label{fig:n4n20}
+  \end{figure}
 
-\begin{figure}[H]
+  \subsection{Modifying electron-hole pair lifetimes (Baseline 2)}
+  The electron/hole lifetimes were modified once more, now with the new baseline. As can be seen in figure \ref{fig:distancevcurrent_lifetime_2}, most changes are subtle, except for that of the transition to $\SI{1e-8}{s}$.
+
+\begin{figure}[htp]
   \centering
-  \includegraphics[width=0.5\textwidth]{n8}
-  \caption{Distance vs $e^-$/$h^+$ concentraion.}
+  \includegraphics[width=.3\textwidth]{lifetime_2_after1e-005s}\hfill
+  \includegraphics[width=.3\textwidth]{lifetime_2_after1e-006s}\hfill
+  \includegraphics[width=.3\textwidth]{lifetime_2_after1e-008s}
+  \caption{Distance vs $e^-$/$h^+$ concentraion with electron/hole lifetimes of $\SI{1e-5}{s}$, $\SI{1e-6}{s}$, and $\SI{1e-8}{s}$.}
+  \label{fig:distancevcurrent_lifetime_2}
 \end{figure}
 
 \bibliography{Experiments}

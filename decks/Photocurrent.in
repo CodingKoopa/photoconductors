@@ -81,7 +81,8 @@ mesh inf=$file_str
 contact name=substrate neutral
 contact name=cathode neutral
 # Configure the electron and hole lifetime parameters.
-material region=1 taun0=1e-7 taup0=1e-7
+set lifetime=1e-7
+material region=1 taun0=$lifetime taup0=$lifetime
 # Enable default models used for bipolar devices.
 models bipolar
 # Use Newton's method for solving, specifying the amount of carrier continuity
