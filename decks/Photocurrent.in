@@ -111,21 +111,63 @@ save outf=$file_sta
 # time to the log file.
 log outf=$file_time_log
 
-# Old: tstep=1e-11 tfinal=1e-8
-# New: tstep=20e-9 tfinal=2e-8
-#solve tstep=20e-9 tfinal=2e-8
-#save outf=${exp_name}_after2e-008s.sta
-
-loop steps = 8
+# Run initial simulations, for certain times. This is done seperate from the
+# other loop because we might want the solutions to be closer together in the
+# beginning. For example, it could be set up so that it simulates:
+#   0ns -> 1ns
+#   2ns -> 5ns
+#   5ns -> 10ns
+#   (i-1)*20ns -> i*20ns, where i starts at 1.
+# To support this pattern of non-regular intervals and then regular intervals,
+# we have this loop of predefined times, and then a loop with a time delta.
+#
+# Within *this* loop, we can prevent simulating the same interval (e.g. 0-1ns)
+# more than once by using the stopping time of the last simulation of the
+# starting simulation of the current simulation. What's nice is that DeckBuild
+# sorts integer arrays in increasing order, which helps ensure that this will
+# work
+#
+# !!! Ensure that the loop steps here match the length of $t_final_arr! !!!
+set last_tfinal=0
+loop steps=4
   # Set the time to start at.
-  assign name = t_step n.value=0 delta=20e-9
-  # Set the time to end at.
-  assign name = t_final n.value=$t_step+20e-9 delta=20e-9
+  assign name=t_step n.value=$last_tfinal
+  # Set the times to end at.
+  assign name=t_final_arr n.value=(1e-9, 2e-9, 5e-9, 10e-9)
   # Set the maximum time-step. This represents the intervals over which the
   # simulation runs, in order to get from t_step to t_final. In a sense, this
   # seems to control the "resolution" of the simulations. As the times get
   # larger, this is scaled up alongside it.
-  assign name = dt_max n.value=0.2e-9
+  # TODO: Should this be tweaked?
+  assign name=dt_max n.value=0.5e-9
+
+  # Reconfigure the solving method.
+  method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$dt_max
+  solve tstep=$t_step tfinal=$t_final_arr
+  save outf=${exp_name}_after${t_final_arr}s.sta
+
+  # Alleviate the issue of redundancy by storing where we left of, so we can
+  # pick back up, next iteration.
+  set last_tfinal=$t_final_arr
+l.end
+
+# Transient time = length traveled/velocity, where l=100microns, v=mu/E, where mu is electron mobility, where E is voltage applied/length. Should be close to 100ns.
+# See hole conc.
+
+# Run simulations over a constant time delta. 20ns is a pretty good interval to
+# start with. With a delta of 20ns, for the number of loop steps, ~30 is good
+# for collecting a baseline (and ensuring that enough data is collected), going
+# up to >600ns. For non-baseline data collection, ~8 is enough;
+#
+# From last loop to this loop, it would be possible to prevent redundancy, but
+# doing so could result in messy filenames. For example, if we picked up at
+# 1ns and ran with a delta of 25ns, then that 1ns will be added to all of the
+# "after" suffixes.
+set delta=25e-9
+loop steps=20
+  assign name=t_step n.value=0 delta=$delta
+  assign name=t_final n.value=$t_step+$delta delta=$delta
+  assign name=dt_max n.value=0.5e-9
 
   # Reconfigure the solving method.
   method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$dt_max
