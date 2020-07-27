@@ -232,7 +232,30 @@ To further study this, the density of electron-hole pairs present in the single-
   \section{Change in current over time (Baseline 2)}
 
   % Break this line to prevent an overful hbox.
-  A new baseline was created, where \lstinline{b.density = 1e-015} rather than \\\lstinline{b.density = 1e-015}, and \lstinline{radius = 1} rather than \lstinline{radius = 5}. Additionally, the time intervals at which data was changed to $20ns$.
+  A new baseline was created, where \lstinline{b.density = 1e-015} rather than \\\lstinline{b.density = 1e-015}, and \lstinline{radius = 1} rather than \lstinline{radius = 5}. Additionally, the time intervals at which data is collected was tuned. Given a lifetime of $\SI{1e-7}{s}$, the electron hole concentration is flattened out completely by 500ns. Figure \ref{fig:n4n10} shows how there is an electron hole cloud that starts out thin, before widening out. Data for this figure was collected at $\SI{1}{ns}$, $\SI{2}{ns}$, $\SI{5}{ns}$, $\SI{10}{ns}$, and then at $\SI{50}{ns}$ intervals.
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{n4n10}
+    \caption{Distance vs $e^-$/$h^+$ concentraion with 14 samples.}
+    \label{fig:n4n10}
+  \end{figure}
+
+  This plot does a pretty good job at conveying the transformation that the electron hole cloud undergoes, but there are a couple of considerations to have, moving forward.
+
+  \begin{itemize}
+    \item In fact, the hole concentration flattens out as early as $\SI{450}{ns}$. For this electron lifetime, we could remove any results after that. However, as we vary the lifetime values, it's possible we may see activity in time intervals beyond this, so it would be wise to keep up to at least $\SI{500}{ns}$ in the baseline.
+    \item After the initial $\SI{<50}{ns}$ solutions, the plot loses a lot of detail. updates should be made more frequent.
+  \end{itemize}
+
+  Thus, we need to modify the deck to satisfy the conditions of going to $\SI{500}{ns}$, at a suitable frequency. After tuning the parameters, I arrived at this plot:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{n4n20}
+  \caption{Distance vs $e^-$/$h^+$ concentraion with 24 samples.}
+  \label{fig:n4n20}
+\end{figure}
 
 \begin{figure}[H]
   \centering
