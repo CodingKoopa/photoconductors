@@ -260,14 +260,37 @@ To further study this, the density of electron-hole pairs present in the single-
   \subsection{Modifying electron-hole pair lifetimes (Baseline 2)}
   The electron/hole lifetimes were modified once more, now with the new baseline. As can be seen in figure \ref{fig:distancevcurrent_lifetime_2}, most changes are subtle, except for that of the transition to $\SI{1e-8}{s}$.
 
-\begin{figure}[htp]
-  \centering
-  \includegraphics[width=.3\textwidth]{lifetime_2_after1e-005s}\hfill
-  \includegraphics[width=.3\textwidth]{lifetime_2_after1e-006s}\hfill
-  \includegraphics[width=.3\textwidth]{lifetime_2_after1e-008s}
-  \caption{Distance vs $e^-$/$h^+$ concentraion with electron/hole lifetimes of $\SI{1e-5}{s}$, $\SI{1e-6}{s}$, and $\SI{1e-8}{s}$.}
-  \label{fig:distancevcurrent_lifetime_2}
-\end{figure}
+  \begin{figure}[htp]
+    \centering
+    \includegraphics[width=.3\textwidth]{lifetime_2_after1e-005s}\hfill
+    \includegraphics[width=.3\textwidth]{lifetime_2_after1e-006s}\hfill
+    \includegraphics[width=.3\textwidth]{lifetime_2_after1e-008s}
+    \caption{Distance vs $e^-$/$h^+$ concentraion with electron/hole lifetimes of $\SI{1e-5}{s}$, $\SI{1e-6}{s}$, and $\SI{1e-8}{s}$.}
+    \label{fig:distancevcurrent_lifetime_2}
+  \end{figure}
+
+  \subsection{Measuring transient time}
+  The transient time $t$ of the single-event upset depends on the length $l$ it travels, and the drift velocity $u$ with which it travels - in fact, this is essentially a rearranged form of $u=\frac{d}{t}$:
+  \begin{equation}
+    t=\frac{l}{u}
+  \end{equation}
+  Since the single-event upset moves across the whole chip, $l=100{\mu}m$. $u$ can be calculated from electron mobility $\mu_n$/$\mu_p$, and electric field $E$ \citep{wikipedia_drift}:
+  \begin{equation}
+    u={\mu}E
+  \end{equation}
+  Finally, the electric field $E$ can be calculated from the voltage applied $V$, and the distance across which it is applied $d$:
+  \begin{equation}
+    E=\frac{V}{l}
+  \end{equation}
+  With TCAD, it can be found that $\mu_n=1299.89745\frac{cm^2}{Vs}$, \\$\mu_p=488.780635\frac{cm^2}{Vs}$, and $E=100\frac{V}{cm}$. Therefore:
+\begin{equation}
+  \begin{gathered}
+    u_n=\mu_nE=(1299.89745\frac{cm^2}{Vs})(100\frac{V}{cm})=129989.745\frac{cm}{s}\\
+    t_n=\frac{l}{u_n}=\frac{0.01cm}{129989.745\frac{cm}{s}}=\SI{7.69e-8}{s}\\
+    u_p=\mu_nE=(488.780635\frac{cm^2}{Vs})(100\frac{V}{cm})=48878.0635\frac{cm}{s}\\
+    t_p=\frac{l}{u_p}=\frac{0.01cm}{48878.0635\frac{cm}{s}}=\SI{2.05e-7}{s}\\
+  \end{gathered}
+\end{equation}
 
 \bibliography{Experiments}
 \bibliographystyle{unsrtnat}
