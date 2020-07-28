@@ -160,8 +160,8 @@ l.end
 # doing so could result in messy filenames. For example, if we picked up at
 # 1ns and ran with a delta of 25ns, then that 1ns will be added to all of the
 # "after" suffixes.
-set delta=25e-9
-loop steps=20
+set delta=33e-9
+loop steps=15
   assign name=t_step n.value=0 delta=$delta
   assign name=t_final n.value=$t_step+$delta delta=$delta
   assign name=dt_max n.value=0.5e-9
