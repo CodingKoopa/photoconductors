@@ -137,8 +137,7 @@ loop steps=4
   assign name=t_final_arr n.value=(1e-9, 2e-9, 5e-9, 10e-9)
   # Set the maximum time-step. This represents the intervals over which the
   # simulation runs, in order to get from t_step to t_final. In a sense, this
-  # seems to control the "resolution" of the simulations. As the times get
-  # larger, this is scaled up alongside it.
+  # seems to control the "resolution" of the simulations.
   # TODO: Should this be tweaked?
   assign name=dt_max n.value=0.5e-9
 
