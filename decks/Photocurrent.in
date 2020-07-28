@@ -152,9 +152,6 @@ loop steps=4
   set last_tfinal=$t_final_arr
 l.end
 
-# Transient time = length traveled/velocity, where l=100microns, v=mu/E, where mu is electron mobility, where E is voltage applied/length. Should be close to 100ns.
-# See hole conc.
-
 # Run simulations over a constant time delta. 20ns is a pretty good interval to
 # start with. With a delta of 20ns, for the number of loop steps, ~30 is good
 # for collecting a baseline (and ensuring that enough data is collected), going
