@@ -158,7 +158,7 @@ loop steps=4
   # simulation runs, in order to get from t_step to t_final. In a sense, this
   # seems to control the "resolution" of the simulations.
   # TODO: Should this be tweaked?
-  assign name=dt_max n.value=0.5e-9
+  assign name=dt_max n.value=0.5e-10
 
   # Reconfigure the solving method.
   method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$dt_max
