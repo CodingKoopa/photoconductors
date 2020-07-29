@@ -5,7 +5,7 @@
 
 # Experimental Variables
 
-# Length of the silicon substrate, in microns.
+# Length of the silicon substrate, in μm.
 set si_len = 100
 # Material used as the dopant.
 set dopant_m = phosphorus
@@ -13,15 +13,35 @@ set dopant_m = phosphorus
 set dopant_c = 1e15
 # Type of the dopant.
 if cond = ($dopant_m = phosphorus)
-  set dopant_t=Nsub
+  set dopant_t = Nsub
 else cond = ($dopant_m = boron)
-  set dopant_t=Psub
+  set dopant_t = Psub
 if.end
+# Lifetime of electrons and electron holes, in s.
+set lifetime = 1e-6
+# Density of the electron/hole pairs, in pC/μmG.
+set ehp_density = 1e-3
 
 # File Paths
 
-# Name of the experiment.
-set exp_name = "PC_${si_len}um_${dopant_t}${dopant_c}"
+# Name of the experiment. Don't append variables to this unless they deviate
+# from the default of the current baseline.
+set exp_name = "PC"
+if cond = ($si_len ^= 100)
+  set exp_name = "${exp_name}_${si_len}um"
+if.end
+if cond = ($dopant_t ^= Nsub)
+  set exp_name = "${exp_name}_${dopant_t}"
+if.end
+if cond = ($dopant_c ^= 1e15)
+  set exp_name = "${exp_name}_${dopant_c}"
+if.end
+if cond = ($lifetime ^= 1e-7)
+  set exp_name = "${exp_name}_lifetime${lifetime}"
+if.end
+if cond = ($ehp_density ^= 1e-5)
+  set exp_name = "${exp_name}_ehpdensity${ehp_density}"
+if.end
 # Name of the structure file.
 set file_str = "${exp_name}.str"
 # Name of the log file for varying voltage.
@@ -81,7 +101,6 @@ mesh inf=$file_str
 contact name=substrate neutral
 contact name=cathode neutral
 # Configure the electron and hole lifetime parameters.
-set lifetime=1e-7
 material region=1 taun0=$lifetime taup0=$lifetime
 # Enable default models used for bipolar devices.
 models bipolar
@@ -93,8 +112,8 @@ method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=0.02e-9
 
 # Introduce a Single Event Upset, with a given number of electron-hole pairs,
 # moving with a given radius.
-singleeventupset entrypoint="0,50" exitpoint="1,50" pcunits b.density=1.0e-5 \
-    radialgauss radius=1 t0=2.e-11 tc=0
+singleeventupset entrypoint="0,50" exitpoint="1,50" pcunits \
+    b.density=$ehp_density radialgauss radius=1 t0=2.e-11 tc=0
 
 # Solve with all voltages set to 0.
 solve initial
