@@ -18,9 +18,9 @@ else cond = ($dopant_m = boron)
   set dopant_t = Psub
 if.end
 # Lifetime of electrons and electron holes, in s.
-set lifetime = 1e-6
-# Density of the electron/hole pairs, in pC/μmG.
-set ehp_density = 1e-3
+set lifetime = 1e-7
+# Density of the electron/hole pairs, in pC/μm.
+set ehp_density = 1e-5
 
 # File Paths
 
