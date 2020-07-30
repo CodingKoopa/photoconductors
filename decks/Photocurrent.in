@@ -10,6 +10,7 @@ set si_len = 100
 # Material used as the dopant.
 set dopant_m = phosphorus
 # Concentration of the dopant.
+# Diode is 1e12.
 set dopant_c = 1e15
 # Type of the dopant.
 if cond = ($dopant_m = phosphorus)
@@ -68,6 +69,9 @@ line y loc=$si_len spac=0.1
 # boron, phosphorus, arsenic, and antimony.
 init silicon c.$dopant_m=$dopant_c orientation=100 two.d
 
+# Add Boron doping to the edge.
+#implant boron dose=1.0e15 energy=10 tilt=0 rotation=0 amorph
+
 # Length of the aluminum deposits, in microns.
 set al_len = 1
 
@@ -76,6 +80,8 @@ deposit aluminum thick=$al_len division=5
 
 # Deposit a layer of aluminum at the bottom.
 structure flip.y
+# Dope the aluminum a little.
+#implant phosphor dose=1.0e15 energy=10 tilt=0 rotation=0 amorph 
 deposit aluminum thick=$al_len division=5
 structure flip.y
 
@@ -123,6 +129,7 @@ output charge e.mobility h.mobility
 # voltage to the log file.
 log outf=$file_volt_log
 # Solve with an increasingly high voltage applied to the substrate electrode.
+# TODO: diode is 10v
 solve vsubstrate=0 vstep=0.5 vfinal=1 name=substrate
 # Save the structure and solution to the solution file.
 save outf=$file_sta
@@ -148,6 +155,7 @@ log outf=$file_time_log
 # work
 #
 # !!! Ensure that the loop steps here match the length of $t_final_arr! !!!
+# try 0.1ns dt.max for diode
 set last_tfinal=0
 loop steps=4
   # Set the time to start at.
@@ -179,10 +187,15 @@ l.end
 # doing so could result in messy filenames. For example, if we picked up at
 # 1ns and ran with a delta of 25ns, then that 1ns will be added to all of the
 # "after" suffixes.
+
+# for diode, run to 50ns
+# run for differnt b.densities
+# must go for much longer
 set delta=33e-9
 loop steps=15
   assign name=t_step n.value=0 delta=$delta
   assign name=t_final n.value=$t_step+$delta delta=$delta
+  # increase by .5
   assign name=dt_max n.value=0.5e-9
 
   # Reconfigure the solving method.
