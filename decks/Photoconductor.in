@@ -5,7 +5,7 @@
 
 # Experimental Variables
 
-# Length of the silicon substrate, in μm.
+# Length of the silicon substrate, in ÃŽÂ¼m.
 set si_len = 100
 # Material used as the dopant.
 set dopant_m = phosphorus
@@ -20,7 +20,7 @@ else cond = ($dopant_m = boron)
 if.end
 # Lifetime of electrons and electron holes, in s.
 set lifetime = 1e-7
-# Density of the electron/hole pairs, in pC/μm.
+# Density of the electron/hole pairs, in pC/ÃŽÂ¼m.
 set ehp_density = 1e-5
 
 # File Paths
@@ -92,10 +92,6 @@ electrode name=substrate x=0.5 y=$si_len+0.1
 
 # Save the mesh to the structure file.
 struct outf=$file_str
-
-# Open the mesh in TonyPlot.
-#tonyplot $file_str
-#quit
 
 # Start the Atlas simulator, for simulating the physics.
 go atlas
@@ -204,5 +200,3 @@ loop steps=15
   save outf=${exp_name}_after${t_final}s.sta
 l.end
 
-# Open the solution in TonyPlot.
-#tonyplot $file_sta $file_log
