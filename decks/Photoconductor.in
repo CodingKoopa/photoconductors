@@ -230,3 +230,5 @@ if.end
 # End lifetime testing loop.
 #l.end
 
+# Beep upon completion.
+system rundll32 user32.dll,MessageBeep
