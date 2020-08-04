@@ -36,7 +36,20 @@ set lifetime = 1e-7
 # Density of the electron/hole pairs, in pC/ÃŽÂ¼m.
 set ehp_density = 1e-5
 
+###############################################################################
+# Experimental Variable Testing Loops
+###############################################################################
+
+# Lifetime testing loop. (TODO)
+#loop steps = 3
+
+# Density testing loop.
+#loop steps=5
+#assign name=ehp_density n.value=(1e-5, 1e-3, 1e-1, 1e+1, 1e+3)
+
+###############################################################################
 # File Paths
+###############################################################################
 
 # Name of the experiment. Don't append variables to this unless they deviate
 # from the default of the current baseline.
@@ -207,20 +220,13 @@ l.end
 
 if.end
 
+###############################################################################
+# Cleanup
+###############################################################################
 
-# for diode, run to 50ns
-# run for differnt b.densities
-# must go for much longer
-set delta=33e-9
-loop steps=15
-  assign name=t_step n.value=0 delta=$delta
-  assign name=t_final n.value=$t_step+$delta delta=$delta
-  # increase by .5
-  assign name=dt_max n.value=0.5e-9
+# End density testing loop.
+#l.modify level=1 next print
 
-  # Reconfigure the solving method.
-  method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$dt_max
-  solve tstep=$t_step tfinal=$t_final
-  save outf=${exp_name}_after${t_final}s.sta
-l.end
+# End lifetime testing loop.
+#l.end
 
