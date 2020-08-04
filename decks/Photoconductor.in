@@ -185,44 +185,43 @@ save outf=$file_sta
 # time to the log file.
 log outf=$file_time_log
 
-# Run initial simulations, for certain times. This is done seperate from the
-# other loop because we might want the solutions to be closer together in the
-# beginning. For example, it could be set up so that it simulates:
-#   0ns -> 1ns
-#   2ns -> 5ns
-#   5ns -> 10ns
-#   (i-1)*20ns -> i*20ns, where i starts at 1.
-# To support this pattern of non-regular intervals and then regular intervals,
-# we have this loop of predefined times, and then a loop with a time delta.
-#
-# Within *this* loop, we can prevent simulating the same interval (e.g. 0-1ns)
-# more than once by using the stopping time of the last simulation of the
-# starting simulation of the current simulation. What's nice is that DeckBuild
-# sorts integer arrays in increasing order, which helps ensure that this will
-# work
-#
-# !!! Ensure that the loop steps here match the length of $t_final_arr! !!!
-# try 0.1ns dt.max for diode
-set last_tfinal=0
-loop steps=4
-  # Set the time to start at.
-  assign name=t_step n.value=$last_tfinal
+# Start with running to 1.4μs, at small densities (6+6 -> up to $t_final_arr[11]).
+set num_additional_loops=6
+# Run for longer, at higher densities. Specifically, when the density >= 1, increase the number of
+# loops by multiples of $num_additional_loops.
+set ehp_density_log = log10($ehp_density)
+if cond = ($ehp_density_log = abs($ehp_density_log))
+  set num_additional_loops = $num_additional_loops * $ehp_density_log
+if.end
+
+set last_t_final = 0
+# Simulate the course of the single-event upset. This simulation used to be
+# broken up into a predefined interval loop, and then a constant delta loop,
+# but the code for it became complicated and hard to troubleshoot.
+# TODO: Diode: Use 0.1ns for dt.max.
+loop steps=6+$num_additional_loops
+  # Set the time to start at. TODO: Is that actually what this means?
+  assign name=t_step n.value=$last_t_final
   # Set the times to end at.
-  assign name=t_final_arr n.value=(1e-9, 2e-9, 5e-9, 10e-9)
+  assign name=t_final_arr n.value=(1e-9, 2e-9, 5e-9, 10e-9, 200e-9, 300e-9, \
+    400e-9, 600e-9, 800e-9, 1000e-9, 1200e-9, 1400e-9, 1600e-9, 1800e-9, \
+    2000e-9, 2200e-9, 2400e-9, 2600e-9, 2800e-9, 3000e-9, 3200e-9, 3400e-9, \
+    3600e-9, 3800e-9, 4000e-9)
+  # Offset the t_final time to account for the plateau in the beginning.
+  set t_final = $event_t_start + $t_final_arr
   # Set the maximum time-step. This represents the intervals over which the
   # simulation runs, in order to get from t_step to t_final. In a sense, this
   # seems to control the "resolution" of the simulations.
-  # TODO: Should this be tweaked?
-  assign name=dt_max n.value=0.5e-10
+  assign name=dt_max n.value=0.5e-9
 
   # Reconfigure the solving method.
   method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$dt_max
-  solve tstep=$t_step tfinal=$t_final_arr
-  save outf=${exp_name}_after${t_final_arr}s.sta
+  solve tstep=$t_step tfinal=$t_final
+  save outf=${exp_name}_after${t_final}s.sta
 
   # Alleviate the issue of redundancy by storing where we left of, so we can
   # pick back up, next iteration.
-  set last_tfinal=$t_final_arr
+  set last_t_final = $t_final
 l.end
 
 if.end
