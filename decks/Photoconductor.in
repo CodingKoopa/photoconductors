@@ -40,8 +40,9 @@ set ehp_density = 1e-5
 # Experimental Variable Testing Loops
 ###############################################################################
 
-# Lifetime testing loop. (TODO)
+# Lifetime testing loop.
 #loop steps = 3
+#assign name=lifetime n.value=(1e-7, 1e-6, 1e-5)
 
 # Density testing loop.
 #loop steps=5
@@ -231,7 +232,7 @@ if.end
 ###############################################################################
 
 # End density testing loop.
-#l.modify level=1 next print
+#l.end
 
 # End lifetime testing loop.
 #l.end
