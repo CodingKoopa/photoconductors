@@ -3,6 +3,19 @@
 #
 # 07/16/2020
 
+###############################################################################
+# Configuration
+###############################################################################
+
+# Whether to run the generation of the structure file, and use a prebuilt.
+# This must be set to true for the variable testing loops to work, or else
+# Athena will try to open $file_str on the second iteration, for some reason.
+# If this is false, PC.str will be used as the structure file.
+set run_athena = true
+# Whether to run the physics simulation. This is useful for just generating
+# the structure file, to skip that step in the future.
+set run_atlas = true
+
 # Experimental Variables
 
 # Length of the silicon substrate, in ÃŽÂ¼m.
@@ -44,13 +57,23 @@ if cond = ($ehp_density ^= 1e-5)
   set exp_name = "${exp_name}_ehpdensity${ehp_density}"
 if.end
 # Name of the structure file.
-set file_str = "${exp_name}.str"
+if cond = ($run_athena = false)
+  set file_str = "PC.str"
+else
+  set file_str = "${exp_name}.str"
+if.end
 # Name of the log file for varying voltage.
 set file_volt_log = "${exp_name}_voltage.log"
 # Name of the log file for varying time.
 set file_time_log = "${exp_name}_time.log"
 # Name of the solution file.
 set file_sta = "${exp_name}.sta"
+
+###############################################################################
+# Athena
+###############################################################################
+
+if cond = ($run_athena = true)
 
 # Start the Athena simulator, for creating the structure.
 go athena
@@ -92,6 +115,14 @@ electrode name=substrate x=0.5 y=$si_len+0.1
 
 # Save the mesh to the structure file.
 struct outf=$file_str
+
+if.end
+
+###############################################################################
+# Atlas
+###############################################################################
+
+if cond = ($run_atlas = true)
 
 # Start the Atlas simulator, for simulating the physics.
 go atlas
@@ -174,15 +205,8 @@ loop steps=4
   set last_tfinal=$t_final_arr
 l.end
 
-# Run simulations over a constant time delta. 20ns is a pretty good interval to
-# start with. With a delta of 20ns, for the number of loop steps, ~30 is good
-# for collecting a baseline (and ensuring that enough data is collected), going
-# up to >600ns. For non-baseline data collection, ~8 is enough;
-#
-# From last loop to this loop, it would be possible to prevent redundancy, but
-# doing so could result in messy filenames. For example, if we picked up at
-# 1ns and ran with a delta of 25ns, then that 1ns will be added to all of the
-# "after" suffixes.
+if.end
+
 
 # for diode, run to 50ns
 # run for differnt b.densities
