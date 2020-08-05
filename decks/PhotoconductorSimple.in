@@ -26,7 +26,7 @@ contact name=substrate neutral
 contact name=cathode neutral
 material region=1 taun0=$lifetime taup0=$lifetime
 models bipolar
-# TODO: Is this line needed?
+# TODO: Is this line needed? In testing, it doesn't seem to be.
 method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=100e-9
 
 set time_event_start = 1e-6
