@@ -55,7 +55,7 @@ solve tfinal=$time_event_start tstep=1e-9
 #   1e2          | 700e-9
 #   1e5          | 740e-9
 # These seem to work even with different lifetimes.
-set pulse_length = 1000-9
+set pulse_length = 1000e-9
 set time_pulse_end = $time_event_start + $pulse_length
 method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$pulse_length/50
 solve tfinal=$time_pulse_end tstep=1e-9
