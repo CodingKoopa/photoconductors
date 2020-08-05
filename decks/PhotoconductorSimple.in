@@ -26,7 +26,7 @@ contact name=substrate neutral
 contact name=cathode neutral
 material region=1 taun0=$lifetime taup0=$lifetime
 models bipolar
-# TODO: Is this line needed? In testing, it doesn't seem to be.
+# TODO: Is this line needed? In testing, it doesn't seem to be, but I didn't look at voltagedata.
 method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=100e-9
 
 set time_event_start = 1e-6
@@ -59,7 +59,7 @@ set pulse_length = 1000-9
 set time_pulse_end = $time_event_start + $pulse_length
 method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$pulse_length/50
 solve tfinal=$time_pulse_end tstep=1e-9
-# Simualte the rest of the pedestal. Set tfinal to twice the above tfinal, and dt.max large.
+# Simulate the rest of the pedestal. Set tfinal to twice the above tfinal, and dt.max large.
 method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=100e-9
 solve tfinal=2*$time_pulse_end tstep=1e-9
 
