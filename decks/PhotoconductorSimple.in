@@ -63,6 +63,4 @@ solve tfinal=$time_pulse_end tstep=1e-9
 method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=100e-9
 solve tfinal=2*$time_pulse_end tstep=1e-9
 
-system rundll32 user32.dll,MessageBeep
-
 quit

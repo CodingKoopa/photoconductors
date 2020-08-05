@@ -213,8 +213,10 @@ if.end
 # End lifetime testing loop.
 #l.end
 
-# Beep upon completion.
-system rundll32 user32.dll,MessageBeep
+# Beep upon completion. Beep 3 times so that this is distinguishable from DeckBuild error dialogs.
+loop steps = 3
+  system rundll32 user32.dll,MessageBeep
+l.end
 
 # Quit the simulator.
 quit
