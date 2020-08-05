@@ -43,7 +43,7 @@ log outf=$file_time_log
 
 # Simulate the pedestal of the current, with large time-steps.
 method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=100e-9
-solve tfinal=$t0 tstep=1e-9
+solve tfinal=$time_event_start tstep=1e-9
 # Simulate the development of the pulse. Start with pulse_length = 1000-9 (1e-6), and then fit it
 # to the size of the pulse, using the plot. dt.max is adjusted so that there are ~50 points.
 #
