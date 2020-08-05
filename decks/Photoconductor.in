@@ -154,8 +154,7 @@ if cond = ($run_atlas = true)
 
   # Time at which the single-event upset starts. This is shifted away from 0 in order to create a
   # plateau at the beginning of the time vs. charge graph.
-  #set event_t_start = 1e-6
-  set event_t_start = 0
+  set time_event_start = 1e-6
 
   # Introduce a single-event upset, with a given number of electron-hole pairs, moving with a given
   # radius.
