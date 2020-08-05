@@ -3,17 +3,16 @@
 #
 # 07/16/2020
 
-###############################################################################
+####################################################################################################
 # Configuration
-###############################################################################
+####################################################################################################
 
-# Whether to run the generation of the structure file, and use a prebuilt.
-# This must be set to false for the variable testing loops to work, or else
-# Athena will try to open $file_str on the second iteration, for some reason.
-# If this is false, PC.str will be used as the structure file.
+# Whether to run the generation of the structure file, and use a prebuilt. This must be set to false
+# for the variable testing loops to work, or else Athena will try to open $file_str on the second
+# iteration, for some reason. If this is false, "PC.str" will be used as the structure file.
 set run_athena = false
-# Whether to run the physics simulation. This is useful for just generating
-# the structure file, to skip that step in the future.
+# Whether to run the physics simulation. This is useful for just generating the structure file, to
+# skip that step in the future.
 set run_atlas = true
 
 # Experimental Variables
@@ -36,9 +35,9 @@ set lifetime = 1e-7
 # Density of the electron/hole pairs, in pC/μm.
 set ehp_density = 1e-5
 
-###############################################################################
+####################################################################################################
 # Experimental Variable Testing Loops
-###############################################################################
+####################################################################################################
 
 # Lifetime testing loop.
 #loop steps = 3
@@ -48,12 +47,12 @@ set ehp_density = 1e-5
 #loop steps=5
 #assign name=ehp_density n.value=(1e-5, 1e-3, 1e-1, 1e+1, 1e+3)
 
-###############################################################################
+####################################################################################################
 # File Paths
-###############################################################################
+####################################################################################################
 
-# Name of the experiment. Don't append variables to this unless they deviate
-# from the default of the current baseline.
+# Name of the experiment. Don't append variables to this unless they deviate from the default of the
+# current baseline.
 set exp_name = "PC"
 if cond = ($si_len ^= 100)
   set exp_name = "${exp_name}_${si_len}um"
@@ -83,30 +82,28 @@ set file_time_log = "${exp_name}_time.log"
 # Name of the solution file.
 set file_sta = "${exp_name}.sta"
 
-###############################################################################
+####################################################################################################
 # Athena
-###############################################################################
+####################################################################################################
 
 if cond = ($run_athena = true)
 
 # Start the Athena simulator, for creating the structure.
 go athena
 
-# Define the initial rectangular grid. Make it 1 micron wide, and a given
-# length long.
+# Define the initial rectangular grid. Make it 1 micron wide, and a given length long.
 line x loc=0 spac=0.5
 line x loc=1 spac=0.5
 line y loc=0 spac=0.1
 line y loc=$si_len spac=0.1
 
-# Define the initial substrate from the rectangular grid. Use silicon as
-# the starting material, with a given dopant concentration.
-# Since we specify phosphorus here, Athena will look up the c.resistivity value
-# from the internal resistivity vs. concentration tables, which can be used for
+# Define the initial substrate from the rectangular grid. Use silicon as the starting material, with
+# a given dopant concentration. Since we specify phosphorus here, Athena will look up the
+# c.resistivity value from the internal resistivity vs. concentration tables, which can be used for
 # boron, phosphorus, arsenic, and antimony.
 init silicon c.$dopant_m=$dopant_c orientation=100 two.d
 
-# Add Boron doping to the edge.
+# TODO: Diode: Add Boron doping to the edge.
 #implant boron dose=1.0e15 energy=10 tilt=0 rotation=0 amorph
 
 # Length of the aluminum deposits, in microns.
@@ -132,9 +129,9 @@ struct outf=$file_str
 
 if.end
 
-###############################################################################
+####################################################################################################
 # Atlas
-###############################################################################
+####################################################################################################
 
 if cond = ($run_atlas = true)
 
@@ -151,10 +148,9 @@ contact name=cathode neutral
 material region=1 taun0=$lifetime taup0=$lifetime
 # Enable default models used for bipolar devices.
 models bipolar
-# Use Newton's method for solving, specifying the amount of carrier continuity
-# equations to solve, whether to reduce electrode bias steps if the solution
-# diverges, the amount of allowed outer loops, the amount of allowed trap
-# procedures, and the maximum time-step.
+# Use Newton's method for solving, specifying the amount of carrier continuity equations to solve,
+# whether to reduce electrode bias steps if the solution diverges, the amount of allowed outer
+# loops, the amount of allowed trap procedures, and the maximum time-step.
 method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=0.02e-9
 
 # Time at which the single-event upset starts. This is shifted away from 0 in order to create a
@@ -162,8 +158,8 @@ method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=0.02e-9
 #set event_t_start = 1e-6
 set event_t_start = 0
 
-# Introduce a Single Event Upset, with a given number of electron-hole pairs,
-# moving with a given radius.
+# Introduce a Single Event Upset, with a given number of electron-hole pairs, moving with a given
+# radius.
 # TODO: Is it necessary to offset by 2e-11s if we are already starting at 1µs?
 singleeventupset entrypoint="0,50" exitpoint="1,50" pcunits \
     b.density=$ehp_density radialgauss radius=1 t0=$event_t_start+2e-11 tc=0
@@ -173,8 +169,7 @@ solve initial
 
 # Include the net charge in the output.
 output charge e.mobility h.mobility
-# Forward any voltage/current data generated by "solve" while varying the
-# voltage to the log file.
+# Forward any voltage/current data generated by "solve" while varying the voltage to the log file.
 log outf=$file_volt_log
 # Solve with an increasingly high voltage applied to the substrate electrode.
 # TODO: Diode: Use 10V.
@@ -182,8 +177,7 @@ solve vsubstrate=0 vstep=0.5 vfinal=1 name=substrate
 # Save the structure and solution to the solution file.
 save outf=$file_sta
 
-# Forward any voltage/current data generated by "solve" while varying the
-# time to the log file.
+# Forward any voltage/current data generated by "solve" while varying the time to the log file.
 log outf=$file_time_log
 
 # Start with running to 1.4μs, at small densities (6+6 -> up to $t_final_arr[11]).
@@ -196,9 +190,9 @@ if cond = ($ehp_density_log = abs($ehp_density_log))
 if.end
 
 set last_t_final = 0
-# Simulate the course of the single-event upset. This simulation used to be
-# broken up into a predefined interval loop, and then a constant delta loop,
-# but the code for it became complicated and hard to troubleshoot.
+# Simulate the course of the single-event upset. This simulation used to be broken up into a
+# predefined interval loop, and then a constant delta loop, but the code for it became complicated
+# and hard to troubleshoot.
 # TODO: Diode: Use 0.1ns for dt.max.
 loop steps=5
   # Set the time to start at.
@@ -207,9 +201,9 @@ loop steps=5
   assign name=t_final_arr n.value=(1e-9, 2e-9, 5e-9, 10e-9, 100e-9)
   # Offset the times to line up with when the single-event upset occurs.
   set t_final = $event_t_start + $t_final_arr
-  # Set the maximum time-step. This represents the intervals over which the
-  # simulation runs, in order to get from t_step to t_final. In a sense, this
-  # seems to control the "resolution" of the simulations.
+  # Set the maximum time-step. This represents the intervals over which the simulation runs, in
+  # order to get from t_step to t_final. In a sense, this seems to control the "resolution" of the
+  # simulations.
   # TODO: Should this be tweaked?
   assign name=dt_max n.value=0.5e-10
 
@@ -218,8 +212,8 @@ loop steps=5
   solve tstep=$t_step tfinal=$t_final
   save outf=${exp_name}_after${t_final_arr}s.sta
 
-  # Alleviate the issue of redundancy by storing where we left of, so we can
-  # pick back up, next iteration.
+  # Alleviate the issue of redundancy by storing where we left of, so we can pick back up, next
+  # iteration.
   set last_t_final = $t_final_arr
 l.end
 

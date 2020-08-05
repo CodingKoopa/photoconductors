@@ -20,13 +20,12 @@ delete
 # Select all of the new Xsection plots.
 select all
 
-# Turn on auto draw. I don't really like this command because it is a toggle,
-# and there is no non-toggle version that, say, just turns auto drawing on, so
-# here we will be preferring to manually trigger a redraw.
+# Turn on auto draw. I don't really like this command because it is a toggle, and there is no
+# non-toggle version that, say, just turns auto drawing on, so we will be preferring to manually
+# trigger a redraw, later.
 # draw auto
 
-# Turn off any existing impurities. Generally, this will disable the "Abs
-# Net Doping" impurity.
+# Turn off any existing impurities. Generally, this will disable the "Abs Net Doping" impurity.
 xsection impurity none
 
 # Add the electron concentration impurity.
@@ -34,9 +33,8 @@ xsection impurity "Electron Conc"
 # Add the hole concentration impurity.
 xsection impurity "Hole Conc"
 
-# Display each key with the same color but different symbol, and each level
-# with the same symbol, but different color. This is infinitely more readable
-# than the alternative.
+# Display each key with the same color but different symbol, and each level with the same symbol,
+# but different color. This is infinitely more readable than the alternative.
 mark overlay 0
 
 # Move the overlay key to the bottom left.
