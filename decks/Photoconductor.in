@@ -158,9 +158,8 @@ if cond = ($run_atlas = true)
 
   # Introduce a single-event upset, with a given number of electron-hole pairs, moving with a given
   # radius.
-  # TODO: Is it necessary to offset by 2e-11s if we are already starting at 1e-6s?
-  singleeventupset entrypoint="0,50" exitpoint="1,50" pcunits \
-                    b.density=$ehp_density radialgauss radius=1 t0=$event_t_start+2e-11 tc=0
+  singleeventupset entrypoint="0,50" exitpoint="1,50" pcunits b.density=$ehp_density radialgauss \
+                    radius=1 t0=$time_event_start tc=0
 
   # Solve with initial parameters.
   solve initial
