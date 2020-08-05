@@ -5,9 +5,10 @@
 # Experimental Variables
 
 # Try 1e-7, 1e-5, 1e-3.
-set lifetime = 1e-5
+set lifetime = 1e-7
 # Try 1e-4, 1e-1, 1e2, 1e5.
-set ehp_density = 1e5
+# See if area of pulse is proportional to this.
+set ehp_density = 1e-4
 
 # File Paths
 
