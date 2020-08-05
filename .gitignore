@@ -18,3 +18,5 @@
 *.str
 *.log
 *.sta
+# Ignore other data files.
+*.csv

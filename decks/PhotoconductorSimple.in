@@ -1,0 +1,67 @@
+# This is another, simpler simulation of a slab of silicon. Structure generation is skipped, you
+# must first generate one with the Photoconductor deck. Comments which would be redundant with that
+# deck are omitted, here.
+
+# Experimental Variables
+
+# Try 1e-7, 1e-5, 1e-3.
+set lifetime = 1e-5
+# Try 1e-4, 1e-1, 1e2, 1e5.
+set ehp_density = 1e5
+
+# File Paths
+
+set exp_name = "PC_lifetime${lifetime}_ehpdensity${ehp_density}"
+set file_str = "PC.str"
+set file_time_log = "${exp_name}_time.log"
+
+# Atlas
+
+go atlas
+
+mesh inf=$file_str
+
+contact name=substrate neutral
+contact name=cathode neutral
+material region=1 taun0=$lifetime taup0=$lifetime
+models bipolar
+# TODO: Is this line needed?
+method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=100e-9
+
+set time_event_start = 1e-6
+singleeventupset entry="0,50" exit="1,50" pcunits b.density=$ehp_density \
+                  radialgauss radius=1 t0=$time_event_start tc=0
+
+solve init
+
+output charge
+
+solve vsubstrate=0 vstep=1 vfinal=10 name=substrate
+
+log outf=$file_time_log
+
+# Simulate the pedestal of the current, with large time-steps.
+method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=100e-9
+solve tfinal=$t0 tstep=1e-9
+# Simulate the development of the pulse. Start with pulse_length = 1000-9 (1e-6), and then fit it
+# to the size of the pulse, using the plot. dt.max is adjusted so that there are ~50 points.
+#
+# The values I found to work are:
+#   $ehp_density | $pulse_length
+#   =============|===========
+#   1e-4         | 15e-9
+#   1e-1         | 100e-9
+#   1e2          | 700e-9
+#   1e5          | 740e-9
+# These seem to work even with different lifetimes.
+set pulse_length = 1000-9
+set time_pulse_end = $time_event_start + $pulse_length
+method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$pulse_length/50
+solve tfinal=$time_pulse_end tstep=1e-9
+# Simualte the rest of the pedestal. Set tfinal to twice the above tfinal, and dt.max large.
+method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=100e-9
+solve tfinal=2*$time_pulse_end tstep=1e-9
+
+system rundll32 user32.dll,MessageBeep
+
+quit
