@@ -11,7 +11,7 @@
 # This must be set to false for the variable testing loops to work, or else
 # Athena will try to open $file_str on the second iteration, for some reason.
 # If this is false, PC.str will be used as the structure file.
-set run_athena = true
+set run_athena = false
 # Whether to run the physics simulation. This is useful for just generating
 # the structure file, to skip that step in the future.
 set run_atlas = true
@@ -159,7 +159,8 @@ method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=0.02e-9
 
 # Time at which the single-event upset starts. This is shifted away from 0 in order to create a
 # plateau at the beginning of the time vs. charge graph.
-set event_t_start = 1.0e-6
+#set event_t_start = 1e-6
+set event_t_start = 0
 
 # Introduce a Single Event Upset, with a given number of electron-hole pairs,
 # moving with a given radius.
@@ -199,29 +200,27 @@ set last_t_final = 0
 # broken up into a predefined interval loop, and then a constant delta loop,
 # but the code for it became complicated and hard to troubleshoot.
 # TODO: Diode: Use 0.1ns for dt.max.
-loop steps=6+$num_additional_loops
-  # Set the time to start at. TODO: Is that actually what this means?
+loop steps=5
+  # Set the time to start at.
   assign name=t_step n.value=$last_t_final
   # Set the times to end at.
-  assign name=t_final_arr n.value=(1e-9, 2e-9, 5e-9, 10e-9, 200e-9, 300e-9, \
-    400e-9, 600e-9, 800e-9, 1000e-9, 1200e-9, 1400e-9, 1600e-9, 1800e-9, \
-    2000e-9, 2200e-9, 2400e-9, 2600e-9, 2800e-9, 3000e-9, 3200e-9, 3400e-9, \
-    3600e-9, 3800e-9, 4000e-9)
-  # Offset the t_final time to account for the plateau in the beginning.
+  assign name=t_final_arr n.value=(1e-9, 2e-9, 5e-9, 10e-9, 100e-9)
+  # Offset the times to line up with when the single-event upset occurs.
   set t_final = $event_t_start + $t_final_arr
   # Set the maximum time-step. This represents the intervals over which the
   # simulation runs, in order to get from t_step to t_final. In a sense, this
   # seems to control the "resolution" of the simulations.
-  assign name=dt_max n.value=0.5e-9
+  # TODO: Should this be tweaked?
+  assign name=dt_max n.value=0.5e-10
 
   # Reconfigure the solving method.
   method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$dt_max
   solve tstep=$t_step tfinal=$t_final
-  save outf=${exp_name}_after${t_final}s.sta
+  save outf=${exp_name}_after${t_final_arr}s.sta
 
   # Alleviate the issue of redundancy by storing where we left of, so we can
   # pick back up, next iteration.
-  set last_t_final = $t_final
+  set last_t_final = $t_final_arr
 l.end
 
 if.end
