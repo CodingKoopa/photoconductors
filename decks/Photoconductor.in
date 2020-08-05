@@ -227,8 +227,8 @@ if.end
 # End lifetime testing loop.
 #l.end
 
-# Quit the simulator.
-quit
-
 # Beep upon completion.
 system rundll32 user32.dll,MessageBeep
+
+# Quit the simulator.
+quit
