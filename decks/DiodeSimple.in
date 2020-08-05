@@ -1,6 +1,5 @@
-# This is another, simpler simulation of a slab of silicon. Structure generation is skipped, you
-# must first generate one with the Photoconductor deck. Comments which would be redundant with that
-# deck are omitted, here.
+# This is a modification of a (now outdated) copy of PhotoconductorSimple.in, modified to generate
+# and simulate a Diode device. Tread with caution.
 
 # Experimental Variables
 
