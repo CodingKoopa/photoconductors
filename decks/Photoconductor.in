@@ -46,7 +46,7 @@ set ehp_density = 1e-5
 #assign name=lifetime n.value=(1e-7, 1e-6, 1e-5)
 
 # Density testing loop.
-#loop steps=5
+#loop steps = 5
 #assign name=ehp_density n.value=(1e-5, 1e-3, 1e-1, 1e+1, 1e+3)
 
 ####################################################################################################
@@ -193,7 +193,7 @@ if cond = ($run_atlas = true)
   # predefined interval loop, and then a constant delta loop, but the code for it became complicated
   # and hard to troubleshoot.
   # TODO: Diode: Use 0.1ns for dt.max.
-  loop steps=5
+  loop steps = 5
     # Set the time to start at.
     assign name=t_step n.value=$last_t_final
     # Set the times to end at.
