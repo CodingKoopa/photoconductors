@@ -1,7 +1,6 @@
 #
-# This is a simulation of a thin slab of Si, a photoconductor.
+# This is a simulation of a thin slab of Si, a photoconductor/diode.
 #
-# 07/16/2020
 
 ####################################################################################################
 # Configuration
@@ -235,10 +234,10 @@ if.end
 ####################################################################################################
 
 # End density testing loop.
-#l.end
+# l.end
 
 # End lifetime testing loop.
-#l.end
+# l.end
 
 # Open the result.
 # tonyplot $file_time_log
