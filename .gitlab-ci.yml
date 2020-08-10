@@ -18,10 +18,10 @@ analysis:flake8:
   # Use the latest flake8 Docker image.
   image:
     name: alpine/flake8:latest
-    entrypoint: [""]
-  rules:
-    - changes:
-        - scripts/*.py
+    entrypoint: ["/bin/sh"]
+  # rules:
+  #   - changes:
+  #       - scripts/*.py
   script:
     # Lint the Python code.
     - flake8 scripts/*.py
