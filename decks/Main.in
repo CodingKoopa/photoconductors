@@ -22,7 +22,7 @@ set run_atlas = true
 # Length of the silicon substrate, in microns.
 set si_len = 100
 # Type of the device. Must be "PC" to use a photoconductor, or "Diode" to use a diode.
-set device_t = Diode
+set device_t = PC
 # Material used as the dopant for the bulk of the device.
 set dopant_bulk_m = phosphorus
 # The diode has a more complex layout for the doping materials. Only phosphorus is supported.
