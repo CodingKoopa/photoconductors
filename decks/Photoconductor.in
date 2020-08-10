@@ -240,6 +240,9 @@ if.end
 # End lifetime testing loop.
 #l.end
 
+# Open the result.
+# tonyplot $file_time_log
+
 # Beep upon completion. Beep 3 times so that this is distinguishable from DeckBuild error dialogs.
 loop steps = 3
   system rundll32 user32.dll,MessageBeep
