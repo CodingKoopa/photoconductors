@@ -378,6 +378,9 @@ Skipping this file." .format(f, DENSITY_FILENAME_STR))
       "=C{}/C${}".format(start_pc_row_data, start_diode_row_data),
       origin="C{}".format(start_pc_row_data))
 
+  ws_all.cell(row=current_free_row, column=1).value = "PC Graphs:"
+  current_free_row += 1
+
   # Create Lifetime v. Charge graphs.
   # The - 2 is a very hacky solution to ignore the 100V and 1000V rows. In reality, this doesn't
   # seem to actually help the graph issues, but hey.
@@ -436,6 +439,33 @@ Skipping this file." .format(f, DENSITY_FILENAME_STR))
             row=(start_nc_row_data - 1) + row,
             column=NUM_NON_DATA_COLUMNS + col).value \
             = trans_normalize.translate_formula(pc_cell.coordinate)
+
+  current_free_row += 13 + NUM_PADDING_CELLS
+  ws_all.cell(row=current_free_row, column=1).value = "PC Normalized Graphs:"
+  current_free_row += 1
+
+  # Hardcoding data sources? Nooo, I would never!
+  values = openpyxl.chart.Reference(
+      worksheet=ws_all,
+      min_col=6,
+      min_row=23,
+      max_row=27)
+
+  chart = openpyxl.chart.LineChart()
+  chart.title = "Charge vs. Lifetime ({})".format(density)
+  # This style has a white main background, a light purple plot background, and a dark purple
+  # line.
+  chart.style = 38
+  chart.width = 13
+  chart.height = 7
+  chart.anchor = ws_all.cell(row=current_free_row, column=1).coordinate
+  chart.legend = None
+  chart.x_axis.title = "Lifetime"
+  chart.x_axis.scaling.logBase = 10
+  chart.y_axis.title = "Charge"
+  chart.add_data(values)
+  chart.set_categories(x_values)
+  ws_all.add_chart(chart)
 
   # We want to graph charge as a function of density, rather than lifetime/voltage. This is
   # markedly different than the charts we have made so far. In order to accomplish, here, we copy
