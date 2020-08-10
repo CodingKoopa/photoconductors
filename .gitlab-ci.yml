@@ -16,12 +16,12 @@ analysis:flake8:
   # Add to the analysis stage.
   stage: analyze
   # Use the latest flake8 Docker image.
-  image:
-    name: alpine/flake8:latest
-    entrypoint: ["/bin/sh"]
+  image: python:3.8-alpine
   # rules:
   #   - changes:
   #       - scripts/*.py
+  before_script:
+    - python -m pip install flake8
   script:
     # Lint the Python code.
     - flake8 scripts/*.py
