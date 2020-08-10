@@ -34,6 +34,7 @@ DENSITY_FILENAME_STR = "ehpdensity"
 # The number of rows for a table in the all integrals sheet which are not used for data. This is
 # used to offset the relative pool row numbers.
 NUM_NON_DATA_ROWS = 2
+# Number of blank rows/columns to insert between tables and charts.
 NUM_PADDING_CELLS = 1
 NUM_NON_DATA_COLUMNS = 2
 ALLINT_VOLTAGE_COL = 1
