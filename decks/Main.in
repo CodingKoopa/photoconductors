@@ -105,7 +105,7 @@ if cond = ($run_athena = false)
   else cond = ($device_t = Diode)
     set file_str = "Diode.str"
   if.end
-else 
+else
   set file_str = "${exp_name}.str"
 if.end
 # Name of the log file for varying voltage.
