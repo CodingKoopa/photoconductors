@@ -9,7 +9,8 @@
 
 # Whether to run the generation of the structure file, and use a prebuilt. This must be set to false
 # for the variable testing loops to work, or else Athena will try to open $file_str on the second
-# iteration, for some reason. If this is false, "PC.str" will be used as the structure file.
+# iteration, for some reason. If this is false, "PC.str"/"Diode.str" will be used as the structure
+# file.
 set run_athena = false
 # Whether to run the physics simulation. This is useful for just generating the structure file, to
 # skip that step in the future.
@@ -21,15 +22,24 @@ set run_atlas = true
 
 # Length of the silicon substrate, in microns.
 set si_len = 100
-# Material used as the dopant.
-set dopant_m = phosphorus
-# Concentration of the dopant.
-# TODO: Diode: Use 1e12.
-set dopant_c = 1e15
-# Type of the dopant.
-if cond = ($dopant_m = phosphorus)
+# Type of the device. Must be "PC" to use a photoconductor, or "Diode" to use a diode.
+set device_t = Diode
+# Material used as the dopant for the bulk of the device.
+set dopant_bulk_m = phosphorus
+# The diode has a more complex layout for the doping materials. Only phosphorus is supported.
+if cond = ($device_t = Diode & $dopant_bulk_m ^= phosphorus)
+  quit
+if.end
+# Concentration of the bulk dopant.
+if cond = ($device_t = PC)
+  set dopant_c = 1e15
+else cond = ($device_t = Diode)
+  set dopant_c = 1e12
+if.end
+# Type of the bulk dopant.
+if cond = ($dopant_bulk_m = phosphorus)
   set dopant_t = Nsub
-else cond = ($dopant_m = boron)
+else cond = ($dopant_bulk_m = boron)
   set dopant_t = Psub
 if.end
 # Lifetime of electrons and electron holes, in s.
@@ -46,8 +56,8 @@ set ehp_density = 1e-4
 #assign name=lifetime n.value=(1e-7, 1e-6, 1e-5)
 
 # Density testing loop.
-#loop steps = 5
-#assign name=ehp_density n.value=(1e-5, 1e-3, 1e-1, 1e+1, 1e+3)
+#loop steps = 11
+#assign name=ehp_density n.value=(1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1e0, 1e1, 1e2, 1e3, 1e4, 1e5)
 
 ####################################################################################################
 # File Paths
@@ -55,16 +65,29 @@ set ehp_density = 1e-4
 
 # Name of the experiment. Don't append variables to this unless they deviate from the default of the
 # current baseline.
-set exp_name = "PC"
+if cond = ($device_t = PC)
+  set exp_name = PC
+else cond = ($device_t = Diode)
+  set exp_name = Diode
+else cond = ($device_t ^= PC & $device_t ^= Diode)
+  # Unsupported device type.
+  quit
+if.end
 if cond = ($si_len ^= 100)
   set exp_name = "${exp_name}_${si_len}um"
 if.end
 if cond = ($dopant_t ^= Nsub)
   set exp_name = "${exp_name}_${dopant_t}"
 if.end
-if cond = ($dopant_c ^= 1e15)
-  set exp_name = "${exp_name}_${dopant_c}"
-if.end
+if cond = ($device_t = PC)
+  if cond = ($dopant_c ^= 1e15)
+    set exp_name = "${exp_name}_${dopant_c}"
+  if.end
+  else cond = ($device_t = Diode)
+    if cond = ($dopant_c ^= 1e12)
+      set exp_name = "${exp_name}_${dopant_c}"
+    if.end
+  if.end
 if cond = ($lifetime ^= 1e-7)
   set exp_name = "${exp_name}_lifetime${lifetime}"
 if.end
@@ -73,8 +96,12 @@ if cond = ($ehp_density ^= 1e-5)
 if.end
 # Name of the structure file.
 if cond = ($run_athena = false)
-  set file_str = "PC.str"
-else
+  if cond = ($device_t = PC)
+    set file_str = "PC.str"
+  else cond = ($device_t = Diode)
+    set file_str = "Diode.str"
+  if.end
+else 
   set file_str = "${exp_name}.str"
 if.end
 # Name of the log file for varying voltage.
@@ -102,10 +129,12 @@ if cond = ($run_athena = true)
   # with a given dopant concentration. Since we specify phosphorus here, Athena will look up the
   # c.resistivity value from the internal resistivity vs. concentration tables, which can be used
   # for boron, phosphorus, arsenic, and antimony.
-  init silicon c.$dopant_m=$dopant_c orientation=100 two.d
+  init silicon c.$dopant_bulk_m=$dopant_c orientation=100 two.d
 
-  # TODO: Diode: Add Boron doping to the edge.
-  #implant boron dose=1.0e15 energy=10 tilt=0 rotation=0 amorph
+  if cond = ($device_t = Diode)
+    # Add Boron doping to the edge.
+    implant boron dose=1.0e15 energy=10 tilt=0 rotation=0 amorph
+  if.end
 
   # Length of the aluminum deposits, in microns.
   set al_len = 1
@@ -115,8 +144,10 @@ if cond = ($run_athena = true)
 
   # Deposit a layer of aluminum at the bottom.
   structure flip.y
-  # TODO: Diode: Dope the aluminum a little.
-  #implant phosphor dose=1.0e15 energy=10 tilt=0 rotation=0 amorph
+  if cond = ($device_t = Diode)
+    # Dope the aluminum a little.
+    implant phosphor dose=1.0e15 energy=10 tilt=0 rotation=0 amorph
+  if.end
   deposit aluminum thick=$al_len division=5
   structure flip.y
 
