@@ -2,6 +2,7 @@
 
 # TODO: Fix quote inconsistency.
 # TODO: "graph"
+# TODO: CI
 
 # Requires Python >= 3.8 for assignment within condition: https://www.python.org/dev/peps/pep-0572/.
 # Also requires Python >= 3.6 for preserving order of inseration for dictionaries.
@@ -132,7 +133,7 @@ Skipping this file." .format(f, VOLTAGE_FILENAME_STR))
 
     # Look for LIFETIME_FILENAME_STR in the file name to find the field, and then remove that
     # identifier string so that we are just left with the value of the field. For example,
-    # "lifetime0.001" is transformed into "τ=1.00e-3".
+    # "lifetime0.001" is transformed into "Ï„=1.00e-3".
     lifetime_str = next(
         (s for s in basename_parts if LIFETIME_FILENAME_STR in s), None)
     if not lifetime_str:
@@ -142,7 +143,7 @@ Skipping this file." .format(f, VOLTAGE_FILENAME_STR))
 Skipping this file." .format(f, LIFETIME_FILENAME_STR))
       continue
     # Force scientific notation so that the dictionary key can be properly sorted as a float.
-    lifetime_key = "τ={}".format(
+    lifetime_key = "Ï„={}".format(
         shorten_exp_notation(float(lifetime_str.replace(LIFETIME_FILENAME_STR, ''))))
 
     # This works in the same way as its lifetime analog.
