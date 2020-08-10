@@ -16,7 +16,9 @@ analysis:flake8:
   # Add to the analysis stage.
   stage: analyze
   # Use the latest flake8 Docker image.
-  image: alpine/flake8:latest
+  image:
+    name: alpine/flake8:latest
+    entrypoint: [""]
   rules:
     - changes:
         - scripts/*.py
