@@ -218,14 +218,8 @@ if cond = ($run_atlas = true)
 
   # Simulate the development of the pulse. Start with pulse_length = 1000-9 (1e-6), and then fit it
   # to the size of the pulse, using the plot. dt.max is adjusted so that there are ~50 points.
-  # The values I found to work are:
-  #   $ehp_density | $pulse_length
-  #   =============|===========
-  #   1e-4         | 15e-9
-  #   1e-1         | 100e-9
-  #   1e2          | 700e-9
-  #   1e5          | 740e-9
-  # These seem to work well enough with different lifetimes.
+  #
+  # For high voltages and higher densities, a smaller initial timestep (1e-12) is also necessary.
   set pulse_length = 1000e-9
   set time_pulse_end = $time_event_start + $pulse_length
   method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$pulse_length/50
