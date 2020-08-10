@@ -54,12 +54,12 @@ set ehp_density = 1e-4
 ####################################################################################################
 
 # Lifetime testing loop.
-#loop steps = 3
-#assign name=lifetime n.value=(1e-7, 1e-6, 1e-5)
+# loop steps = 3
+# assign name=lifetime n.value=(1e-7, 1e-6, 1e-5)
 
 # Density testing loop.
-#loop steps = 11
-#assign name=ehp_density n.value=(1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1e0, 1e1, 1e2, 1e3, 1e4, 1e5)
+# loop steps = 11
+# assign name=ehp_density n.value=(1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1e0, 1e1, 1e2, 1e3, 1e4, 1e5)
 
 ####################################################################################################
 # File Paths
