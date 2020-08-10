@@ -42,7 +42,7 @@ else cond = ($dopant_bulk_m = boron)
   set dopant_t = Psub
 if.end
 # Voltage applied to the device.
-set voltage = 1000
+set voltage = 10
 # Lifetime of electrons and electron holes, in s.
 set lifetime = 1e-7
 # Density of the electron/hole pairs, in pC/micron.
