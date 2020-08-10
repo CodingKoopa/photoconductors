@@ -11,3 +11,15 @@ analysis:ec:
   script:
     # Check that all text complies with the EditorConfig file.
     - ec
+
+analysis:flake8:
+  # Add to the analysis stage.
+  stage: analyze
+  # Use the latest flake8 Docker image.
+  image: alpine/flake8:latest
+  rules:
+    - changes:
+        - scripts/*.py
+  script:
+    # Lint the Python code.
+    - flake8 scripts/*.py
