@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 # TODO: Fix quote inconsistency.
-# TODO: "graph"
 
 # Requires Python >= 3.8 for assignment within condition: https://www.python.org/dev/peps/pep-0572/.
 # Also requires Python >= 3.6 for preserving order of inseration for dictionaries.
@@ -268,7 +267,7 @@ Skipping this file." .format(f, DENSITY_FILENAME_STR))
                     NUM_PADDING_CELLS)
     device_pool[device]["end"] = device_pool[device]["start"] + num_data_rows
     device_n += 1
-  # Make note of where the next free row is, so that we can write more tables and graphs there.
+  # Make note of where the next free row is, so that we can write more tables and charts there.
   current_free_row = find_dict_val(device_pool, max) + 1 + NUM_PADDING_CELLS
 
   print(Fore.GREEN + "Writing CSVs to workbook...")
@@ -375,12 +374,12 @@ Skipping this file." .format(f, DENSITY_FILENAME_STR))
       "=C{}/C${}".format(start_pc_row_data, start_diode_row_data),
       origin="C{}".format(start_pc_row_data))
 
-  ws_all.cell(row=current_free_row, column=1).value = "PC Graphs:"
+  ws_all.cell(row=current_free_row, column=1).value = "PC Charts:"
   current_free_row += 1
 
-  # Create Lifetime v. Charge graphs.
+  # Create Lifetime v. Charge charts.
   # The - 2 is a very hacky solution to ignore the 100V and 1000V rows. In reality, this doesn't
-  # seem to actually help the graph issues, but hey.
+  # seem to actually help the chart issues, but hey.
   x_values = openpyxl.chart.Reference(
       worksheet=ws_all,
       min_col=ALLINT_LIFETIME_COL,
@@ -420,7 +419,7 @@ Skipping this file." .format(f, DENSITY_FILENAME_STR))
     # Advance the "index" at which we are anchoring the chart.
     left = not left
     if left:
-      # This is meant to be the height of the graph in cells.
+      # This is meant to be the height of the chart in cells.
       current_free_row += 13
 
     # Go back to working on the NC table.
@@ -438,7 +437,7 @@ Skipping this file." .format(f, DENSITY_FILENAME_STR))
             = trans_normalize.translate_formula(pc_cell.coordinate)
 
   current_free_row += 13 + NUM_PADDING_CELLS
-  ws_all.cell(row=current_free_row, column=1).value = "PC Normalized Graphs:"
+  ws_all.cell(row=current_free_row, column=1).value = "PC Normalized Charts:"
   current_free_row += 1
 
   # Hardcoding data sources? Nooo, I would never!
@@ -471,7 +470,7 @@ Skipping this file." .format(f, DENSITY_FILENAME_STR))
   ws_diode = wb.create_sheet(title="Diode Charge Integral Analysis", index=1)
   ws_diode.cell(row=1, column=DIODE_DENSITY_COL).value = "Density"
   start_col_data = 1
-  # Keep track of the column we're writing to, so we know where to put the graph.
+  # Keep track of the column we're writing to, so we know where to put the chart.
   current_col = start_col_data
   # Map what used to be voltage rows, to voltage columns. - 1 is necessary to get rid of a header
   # cell that is present for the rows but not the columns.
@@ -485,7 +484,7 @@ Skipping this file." .format(f, DENSITY_FILENAME_STR))
   end_col_data = current_col
 
   start_row_data = 1
-  # Keep track of the row we're writing to, so we know what data to use for the graph.
+  # Keep track of the row we're writing to, so we know what data to use for the chart.
   current_row = start_row_data
   # Note that this iterates in a different order than everywhere else, in doing density, *then*
   # voltage.
