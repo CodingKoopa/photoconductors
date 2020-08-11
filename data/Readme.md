@@ -1,5 +1,5 @@
 # Experimental Data
-This directory contains the experimental data I have collected, as well as the graphs I have generated from it. These are the different groups, in the order in which they were collected:
+This directory contains the experimental data I have collected, as well as the graphs I have generated from it. The actual data files (see the .gitignore for specifics) are not included here, because I am not sure if Silvaco's license permits sharing them. These are the different groups, in the order in which they were collected:
 - calc_current_1: Data collected for calculating current using ρ=E/L. See: Calculating electrical current.
 - calc_current_2: Data collected for calculating current using σ=qμn. Somewhat of a neater "redo" of `calc_current_1`. See: Effect of dopant concentration and voltage on current.
 - time_v_current_beforerewrite: Data collecting for studying change in current over time, before the code was rewritten into a loop.
