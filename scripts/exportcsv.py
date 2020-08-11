@@ -2,7 +2,6 @@
 
 # TODO: Fix quote inconsistency.
 # TODO: "graph"
-# TODO: CI
 
 # Requires Python >= 3.8 for assignment within condition: https://www.python.org/dev/peps/pep-0572/.
 # Also requires Python >= 3.6 for preserving order of inseration for dictionaries.
