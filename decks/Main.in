@@ -215,13 +215,13 @@ if cond = ($run_atlas = true)
   method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=100e-9
   solve tfinal=$time_event_start tstep=1e-9
 
-  # Simulate the development of the pulse. Start with pulse_length = 1000-9 (1e-6), and then fit it
+  # Simulate the development of the pulse. Start with pulse_width = 1000-9 (1e-6), and then fit it
   # to the size of the pulse, using the plot. dt.max is adjusted so that there are ~50 points.
   #
   # For high voltages and higher densities, a smaller initial timestep (1e-12) is also necessary.
-  set pulse_length = 1000e-9
-  set time_pulse_end = $time_event_start + $pulse_length
-  method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$pulse_length/50
+  set pulse_width = 1000e-9
+  set time_pulse_end = $time_event_start + $pulse_width
+  method newton carriers=2 trap itlimit=20 maxtraps=10 dt.max=$pulse_width/50
   solve tfinal=$time_pulse_end tstep=1e-9
 
   # Simulate the rest of the pedestal.
