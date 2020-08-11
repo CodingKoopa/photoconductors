@@ -14,6 +14,8 @@
 ![Nn]otes/*.tex
 [Nn]otes/*temp.tex
 ![Nn]otes/*.bib
+# Include TeX output.
+![Nn]otes/*.pdf
 # Ignore all Silvaco TCAD files.
 *.str
 *.log
