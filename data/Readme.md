@@ -12,3 +12,4 @@ This directory contains the experimental data I have collected, as well as the g
 - time_v_current_lifetime_2: Data collecting for studying change in current over time, with changing electron/hole pair lifetimes. See: Modifying electron-hole pair lifetime. Modifying electron-hole pair lifetimes (Baseline 2). Compare with n4n20.
 - time_v_current_vary_lifetime_density_bad_1: First attempt at varying both lifetime and density. Data scrapped due to bad time intervals.
 - time_v_current_vary_lifetime_density_bad_2: Another failed attempt at varying both lifetime and density. Data scrapped due to bad time intervals.
+- time_v_current_vary_lifetime_density: Successful attempt at varying lifetime, density, and voltage. This is used in the finalized Excel sheets.
