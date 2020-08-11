@@ -272,8 +272,6 @@ Skipping this file." .format(f, DENSITY_FILENAME_STR))
   # Make note of where the next free row is, so that we can write more tables and graphs there.
   current_free_row = find_dict_val(device_pool, max) + 1 + NUM_PADDING_CELLS
 
-  print(pool, device_pool)
-
   print(Fore.GREEN + "Writing CSVs to workbook...")
 
   wb = openpyxl.Workbook()
