@@ -1,4 +1,4 @@
-![Concentration vs. Distance (PC)](present/Concentration vs. Distance (PC).png)
+![Concentration vs. Distance (PC)](present/banner.png)
 # Photoconductor Research
 
 This repository has the code, graphs, and notes I produced for my project under the [BNL High School Research Program](https://www.bnl.gov/education/programs/program.php?q=219). This project centers around using photoconductors in silicon sensors to detect incoming particles. For more info, see:
