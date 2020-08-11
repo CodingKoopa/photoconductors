@@ -149,7 +149,7 @@ if cond = ($run_athena = true)
   # Deposit a layer of aluminum at the bottom.
   structure flip.y
   if cond = ($device_t = Diode)
-    # Dope the aluminum a little.
+    # Dope the silicon a little.
     implant phosphor dose=1.0e15 energy=10 tilt=0 rotation=0 amorph
   if.end
   deposit aluminum thick=$al_len division=5
