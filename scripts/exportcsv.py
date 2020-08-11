@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-# TODO: Fix quote inconsistency.
-
 # Requires Python >= 3.8 for assignment within condition: https://www.python.org/dev/peps/pep-0572/.
 # Also requires Python >= 3.6 for preserving order of inseration for dictionaries.
 # Also requires Python >= 3.5 for recursive support in glob.
@@ -46,7 +44,7 @@ def sort_alphanumeric(data):
 
   def convert(text): return int(text) if text.isdigit() else text.lower()
   def alphanum_key(key): return [convert(c)
-                                 for c in re.split('([0-9]+)', key)]
+                                 for c in re.split("([0-9]+)", key)]
   return sorted(data, key=alphanum_key)
 
 
@@ -95,7 +93,7 @@ def export(args):
   # Force exponential notation with 1 sigfig, strip leading 0s in the exponent of exponential
   # notation, and strip unneeded "+".
   def shorten_exp_notation(s):
-    return re.sub(r'e(\+)?(-)?0+(.+)', r'e\2\3', format(s, "1.0e"))
+    return re.sub(r"e(\+)?(-)?0+(.+)", r"e\2\3", format(s, "1.0e"))
 
   csv_dict = {}
   for f in csv_list:
@@ -103,7 +101,7 @@ def export(args):
     # File names are expected to come in formats like
     # "PC_lifetime0.001_ehpdensity0.0001_time.csv". Here, we parse the information given,
     # delimited by the underscores.
-    basename_parts = re.split(r'_|\.csv', os.path.basename(f))
+    basename_parts = re.split(r"_|\.csv", os.path.basename(f))
 
     # See: https://stackoverflow.com/a/30197797.
     device_str = next((s for s in basename_parts if "PC" in s), None)
@@ -128,7 +126,7 @@ Skipping this file." .format(f, VOLTAGE_FILENAME_STR))
       continue
     # TODO: what formatting to use?
     voltage_key = "{}V".format(
-        int(voltage_str.replace(VOLTAGE_FILENAME_STR, '')))
+        int(voltage_str.replace(VOLTAGE_FILENAME_STR, "")))
 
     # Look for LIFETIME_FILENAME_STR in the file name to find the field, and then remove that
     # identifier string so that we are just left with the value of the field. For example,
@@ -143,7 +141,7 @@ Skipping this file." .format(f, LIFETIME_FILENAME_STR))
       continue
     # Force scientific notation so that the dictionary key can be properly sorted as a float.
     lifetime_key = "τ={}".format(
-        shorten_exp_notation(float(lifetime_str.replace(LIFETIME_FILENAME_STR, ''))))
+        shorten_exp_notation(float(lifetime_str.replace(LIFETIME_FILENAME_STR, ""))))
 
     # This works in the same way as its lifetime analog.
     density_str = next(
@@ -155,7 +153,7 @@ Skipping this file." .format(f, LIFETIME_FILENAME_STR))
 Skipping this file." .format(f, DENSITY_FILENAME_STR))
       continue
     density_key = "D={}".format(
-        shorten_exp_notation(float(density_str.replace(DENSITY_FILENAME_STR, ''))))
+        shorten_exp_notation(float(density_str.replace(DENSITY_FILENAME_STR, ""))))
 
     # device_str is already usable as a key.
     if device_str not in csv_dict:
@@ -187,9 +185,9 @@ Skipping this file." .format(f, DENSITY_FILENAME_STR))
 
     def key(x):
       if "V" in x[0]:
-        return int(x[0].split('V')[0])
+        return int(x[0].split("V")[0])
       elif "=" in x[0]:
-        return float(x[0].split('=')[-1])
+        return float(x[0].split("=")[-1])
       else:
         return x
     for k, v in sorted(dictionary.items(), key=key):
@@ -492,7 +490,7 @@ Skipping this file." .format(f, DENSITY_FILENAME_STR))
     current_row += 1
     col_orig = pool["col_mappings"][density]
     # For this, we don't want the "D=".
-    row_contents = [density.split('=')[-1]]
+    row_contents = [density.split("=")[-1]]
     for voltage in pool["row_mappings"]:
       for lifetime in pool["row_mappings"][voltage]:
         # We are still only interested in this particular lifetime.
