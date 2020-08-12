@@ -214,8 +214,14 @@ Skipping this file." .format(f, DENSITY_FILENAME_STR))
 
   print(Fore.GREEN + "Creating row and column mappings.")
 
-  # Initialize the pool. TODO: Document this!
-  # These are relative!
+  # Initialize the pool. This is used to allocate rows and columns to their respective voltages,
+  # lifetimes, and densities. These attributes are all "pooled" together from different devices so
+  # that every device table will have the same rows and columns, which makes translating formulas
+  # doable.
+  #
+  # These are relative, so, in using them, you must offset them by the appropriate constant.
+  # Additionally, these are not zero-indexed, so, if adding these to another non zero-indexed Excel
+  # row/column, you will have to subtract 1.
   pool = {"row_mappings": {}, "col_mappings": {}}
 
   # Initiialize the pool keys.
