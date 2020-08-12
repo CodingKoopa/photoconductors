@@ -5,13 +5,16 @@
 # Also requires Python >= 3.5 for recursive support in glob.
 # pip install -r requirements.txt
 
-# Compatibility (TODO: update this!):
-# - The online version of Microsoft Excel works without any issues.
-# - Google Sheets has issues with decimal places. The default level of precision is not enough to
-# support the math done. This may be fixable.
-# - LibreOffice Calc has issues with sheet references. It uses a different format than Excel and
-# Google Sheets, but seems to convert the formula to all lowercase, breaking the name of the sheet
-# being reference. It is not supported by this script.
+# Compatibility:
+# - Microsoft Excel works mostly well. The graphs with blank cells in them do not work by default.
+# In desktop Excel, this can be fixed by changing how hidden and empty cells are displayed in the
+# data sources. In online Excel, I don't know of any way of fixing this.
+# - Google Sheets has issues with decimal places. The default level of precision does not display
+# the numbers properly in the tables, although graphs seem to work fine. Sheets has the best default
+# behavior with the blank cells, opting to draw them as points (and this can be further improved
+# by manually setting it to plot null values.
+# - LibreOffice Calc pretty much works in the same way as Excel, except I don't know of any way to
+# fix how it treats the blank cells.
 
 import argparse
 import csv
