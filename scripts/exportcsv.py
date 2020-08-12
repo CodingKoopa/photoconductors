@@ -604,13 +604,8 @@ def main():
       "exp", help="Directory or name of the experiment to export.", type=str)
   subparser_export.set_defaults(func=export)
 
-  # TODO: Fix this (catching errors like this causes other issues).
   args = parser.parse_args()
-  # Ask for forgiveness from the Python gods (https://stackoverflow.com/a/610923).
-  # try:
   args.func(args)
-  # except AttributeError:
-  #   parser.print_help()
 
 
 if __name__ == "__main__":
