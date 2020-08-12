@@ -25,19 +25,27 @@ import re
 from colorama import Fore, Style, init as colorama_init
 import openpyxl
 
-# TODO: Describe these.
+# The default data directory to look for experiments in.
 DEFAULT_DATA_DIR = "../data"
+# The substring of the filename to use for the voltage.
 VOLTAGE_FILENAME_STR = "voltage"
+# The substring of the filename to use for the lifetime.
 LIFETIME_FILENAME_STR = "lifetime"
+# The substring of the filename to use for the density.
 DENSITY_FILENAME_STR = "ehpdensity"
 # The number of rows for a table in the all integrals sheet which are not used for data. This is
 # used to offset the relative pool row numbers.
 NUM_NON_DATA_ROWS = 2
+# The number of columns for a table in the all integrals sheet which are not used for data. This is
+# used to offset the relative pool row numbers.
+NUM_NON_DATA_COLUMNS = 2
 # Number of blank rows/columns to insert between tables and charts.
 NUM_PADDING_CELLS = 1
-NUM_NON_DATA_COLUMNS = 2
+# The column of the all integrals sheet which is used for voltage.
 ALLINT_VOLTAGE_COL = 1
+# The column of the all integrals sheet which is used for lifetimes.
 ALLINT_LIFETIME_COL = 2
+# The column of the diode integrals sheet which is used for densities.
 DIODE_DENSITY_COL = 1
 
 
