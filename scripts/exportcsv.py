@@ -344,7 +344,6 @@ Skipping this file." .format(f, DENSITY_FILENAME_STR))
                     "B{}".format(row_n))
                 ws["D{}".format(row_n)] = trans_integral.translate_formula(
                     "C{}".format(row_n))
-          # TODO: Is there a better name for this?
           ws["C1"] = "Difference from Start"
           ws["D1"] = "Integral"
           # The integral formula references the row above it, so it doesn't make sense to
