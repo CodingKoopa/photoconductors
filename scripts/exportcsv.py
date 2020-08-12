@@ -60,9 +60,6 @@ def sort_alphanumeric(data):
 
 
 def ls(args):
-  """TODO
-  """
-
   print(Fore.GREEN + "Listing experiments...")
   # Fetch top-level directories in the data directory.
   child_dirs = glob(args.dir + "/*/")
@@ -82,9 +79,6 @@ def ls(args):
 
 
 def export(args):
-  """TODO
-  """
-
   print(Fore.GREEN + "Mapping CSV files to dictionary...")
 
   exp = args.exp
