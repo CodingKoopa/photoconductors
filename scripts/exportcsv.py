@@ -320,13 +320,10 @@ Skipping this file." .format(f, DENSITY_FILENAME_STR))
     print(Fore.WHITE + "- {}".format(device))
     header_row = device_pool[device]["start"] - 1
     # Add a label for this table.
-    # TODO: Format this!
     ws_all.cell(row=header_row - 1, column=1).value = "{}:".format(device)
     # Add a header for the voltages.
-    # TODO: Format this!
     ws_all.cell(row=header_row, column=ALLINT_VOLTAGE_COL).value = "Voltage"
     # Add a header for the lifetimes.
-    # TODO: Format this!
     ws_all.cell(row=header_row, column=ALLINT_LIFETIME_COL).value = "Lifetime"
     for voltage in csv_dict_ordered[device]:
       print(Fore.WHITE + "  - {}".format(voltage))
