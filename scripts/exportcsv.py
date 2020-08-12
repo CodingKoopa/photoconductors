@@ -135,7 +135,6 @@ in file name. Skipping this file.".format(f))
           "Density could not be extracted from file \"{}\". Looked for \"{}\" in file name. \
 Skipping this file." .format(f, VOLTAGE_FILENAME_STR))
       continue
-    # TODO: what formatting to use?
     voltage_key = "{}V".format(
         int(voltage_str.replace(VOLTAGE_FILENAME_STR, "")))
 
