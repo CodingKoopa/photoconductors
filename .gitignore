@@ -16,6 +16,8 @@
 ![Nn]otes/*.bib
 # Include TeX output.
 ![Nn]otes/*.pdf
+# Include Markdown notes.
+![Nn]otes/*.md
 # Ignore all Silvaco TCAD files.
 *.str
 *.log

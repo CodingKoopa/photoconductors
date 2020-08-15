@@ -10,5 +10,6 @@ This repository has the code, graphs, and notes I produced for my project under 
 Here is how this repo is laid out:
 - [data](data): Experimental data collected using Silvaco TCAD.
 - [decks](decks): Silvaco Deckbuild code for using Silvaco Athena and Atlas to run simulations.
+- [notes](notes): Notes I have taken while developing this project.
 - [present](present): Renders for presentations.
 - [scripts](scripts): Scripts developed for automating parts ot his project.
